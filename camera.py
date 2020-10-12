@@ -13,7 +13,7 @@ from time import sleep
 from PIL import Image, ImageDraw
 from datetime import datetime
 
-#test
+#Supptest
 # initialise global variables
 Numeral = ""  # Numeral is the number display
 Message = ""  # Message is a fullscreen message

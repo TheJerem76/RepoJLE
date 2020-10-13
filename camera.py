@@ -1,4 +1,4 @@
-import picamera
+import picamera #Import des librairies
 import pygame
 import datetime
 import time
@@ -7,13 +7,13 @@ import PIL.Image
 import cups
 import RPi.GPIO as GPIO
 
-from threading import Thread
+from threading import Thread #Import des librairies
 from pygame.locals import *
 from time import sleep
 from PIL import Image, ImageDraw
 from datetime import datetime
 
-#Supptest
+#Que signifie toute cette partie (Lignes 18 à 32) ? Est-ce une définition de fonctions utilisées dans le code ?
 # initialise global variables
 Numeral = ""  # Numeral is the number display
 Message = ""  # Message is a fullscreen message
@@ -39,13 +39,14 @@ IMAGE_HEIGHT = 619
 
 
 # Load the background template
-bgimage = PIL.Image.open(templatePath)
+bgimage = PIL.Image.open(templatePath) #Est-ce une fonction nommée "bgimage" ?
 
 #Setup GPIO
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(BUTTON_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 # initialise pygame
+#Pour info, pygame est un truc (librairie ?) qui donne la possibilité d'afficher des éléments à l'écran
 pygame.init()  # Initialise pygame
 myfont = pygame.font.SysFont("monospace", 15) # Je definis mon element texte
 pygame.mouse.set_visible(False) #hide the mouse cursor
@@ -60,6 +61,7 @@ backgroundPicture = background.convert()  # Convert it to a background
 
 transform_x = infoObject.current_w # how wide to scale the jpg when replaying
 transfrom_y = infoObject.current_h # how high to scale the jpg when replaying
+#De la ligne 49 à 63, des fonctions sont utilisées. Ce sont des fonctions propres à pygame ? Je dois donc me reporter au fonctionnement de la "librairie" que je dois chercher sur internet ?
 
 camera = picamera.PiCamera()
 # Initialise the camera object
@@ -92,6 +94,7 @@ def input(events):
                 (event.type == KEYDOWN and event.key == K_ESCAPE)):
             pygame.quit()
 
+#À quoi sert cette première fonction ? Simplement à quitter en cas d'appui sur une touche ?
             
 # set variables to properly display the image on screen at right ratio
 def set_demensions(img_w, img_h):
@@ -125,7 +128,7 @@ def set_demensions(img_w, img_h):
         transform_y = infoObject.current_h
         offset_y = offset_x = 0
 
-def InitFolder():
+def InitFolder(): #Cette fonction semble srevir à définir le dossier "images" afin de stoker les photos
     global imagefolder
     global Message
  
@@ -141,7 +144,7 @@ def InitFolder():
     if not os.path.isdir(imagefolder2):
         os.makedirs(imagefolder2)
         
-def DisplayText(fontSize, textToDisplay):
+def DisplayText(fontSize, textToDisplay): #À quoi sert cette fonction ? Qu'est-ce que fontSize et textToDisplay ?
     global Numeral
     global Message
     global screen
@@ -167,7 +170,7 @@ def DisplayText(fontSize, textToDisplay):
             else:
                     background.blit(text, textpos)
                 
-def UpdateDisplay():
+def UpdateDisplay(): #À quoi sert cette fonction ?
     # init global variables from main thread
     global Numeral
     global Message
@@ -248,7 +251,7 @@ def ShowPicture(file, delay):
     time.sleep(delay)
     
 # display one image on screen
-def show_image(image_path): 
+def show_image(image_path): #Qu'est ce que image_path ?
     screen.fill(pygame.Color("white")) # clear the screen   
     img = pygame.image.load(image_path) # load the image
     img = img.convert()
@@ -496,15 +499,15 @@ def WaitForEvent():
                             return
             time.sleep(0.2)
 
-def main(threadName, *args):
-    InitFolder()
-    while True:
-            show_image('images/appuyez4.jpg')
-            WaitForEvent()
-            time.sleep(0.2)
-            TakePictures()
+def main(threadName, *args): #À quoi sert cette fonction ? Qu'est ce que threadName et *args ?
+    InitFolder() #Lance la fonction InitFolder c'est ça ? C'est défini tout en haut
+    while True: #Si le dossier est bien créé...
+            show_image('images/appuyez4.jpg') #Alors on montre l'image "appuyez4.jpg"...
+            WaitForEvent() #Puis on lance la fonction aussitôt ? Si oui alors l'image est subliminale non ?
+            time.sleep(0.2) #Puis on attends 0.2s
+            TakePictures() #Puis on lance la fonction TapePictures
     GPIO.cleanup()
 
 
 # launch the main thread
-Thread(target=main, args=('Main', 1)).start()
+Thread(target=main, args=('Main', 1)).start() #À quoi sert cette ligne ?

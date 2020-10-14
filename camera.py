@@ -13,8 +13,8 @@ from time import sleep
 from PIL import Image, ImageDraw
 from datetime import datetime
 
-#Que signifie toute cette partie (Lignes 18 à 32) ? Est-ce une définition de fonctions utilisées dans le code ?
-# initialise global variables
+
+# Définition des variables
 Numeral = ""  # Numeral is the number display
 Message = ""  # Message is a fullscreen message
 BackgroundColor = ""
@@ -26,7 +26,7 @@ PhotosPerCart = 30  # Selphy takes 16 sheets per tray
 imagecounter = 0
 imagefolder = 'Photos'
 usbfolder = '/media/pi/YELLOW 15GO/Photobooth'
-templatePath = os.path.join('Photos', 'Template', "1anSam.jpg") #Path of template image
+templatePath = os.path.join('Photos', 'Template', "1anSam.jpg") #Path of template image - La variable templatePath sera l'image .jpg. Qu'est ce que signifie la partie os.path.join, et comment expliquer la construction des paramètres entre parenthèses ?
 ImageShowed = False
 Printing = False
 BUTTON_PIN = 25
@@ -39,11 +39,11 @@ IMAGE_HEIGHT = 619
 
 
 # Load the background template
-bgimage = PIL.Image.open(templatePath) #Est-ce une fonction nommée "bgimage" ?
+bgimage = PIL.Image.open(templatePath) #La variable bgimage sera le contenu de la variable templatePath c'est ça ?
 
 #Setup GPIO
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(BUTTON_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setmode(GPIO.BCM) # Cela signifie que le comptage des PIN se fera selon l'approche de numérotation électronique de la carte RPI.
+GPIO.setup(BUTTON_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP) #BUTTON_PIN est une variable = 25. Ici on set le pin 25 en entrée
 
 # initialise pygame
 #Pour info, pygame est un truc (librairie ?) qui donne la possibilité d'afficher des éléments à l'écran

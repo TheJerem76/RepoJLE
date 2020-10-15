@@ -34,7 +34,7 @@ BUTTON_PIN = 25
 #IMAGE_HEIGHT = 374
 #IMAGE_WIDTH = 550
 #IMAGE_HEIGHT = 360
-IMAGE_WIDTH = 1100 # Base d'un ratio 16/9
+IMAGE_WIDTH = 1100 # Base d'un ratio 16/9 ; utilisé pour un resize en ligne 318
 IMAGE_HEIGHT = 619
 
 
@@ -315,7 +315,7 @@ def CapturePicture():
         imagecounter = imagecounter + 1
         ts = datetime.now()
         filename = os.path.join(imagefolder, 'images', str(imagecounter)+"_"+str(ts.strftime("%d-%m-%Y %H:%M:%S")) + '.jpg')
-        camera.capture(filename, resize=(IMAGE_WIDTH, IMAGE_HEIGHT))
+        camera.capture(filename, resize=(IMAGE_WIDTH, IMAGE_HEIGHT)) # Le resize est non mandatory pour cette fonction
         camera.stop_preview()
         ShowPicture(filename, 2)
         ImageShowed = False

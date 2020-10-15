@@ -1,5 +1,5 @@
 import picamera #Import des librairies
-import pygame
+import pygame #pygame sert à l'affichage
 import datetime
 import time
 import os
@@ -50,9 +50,9 @@ GPIO.setup(BUTTON_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP) #BUTTON_PIN est une va
 pygame.init()  # Initialise pygame
 myfont = pygame.font.SysFont("monospace", 15) # Je definis mon element texte
 pygame.mouse.set_visible(False) #hide the mouse cursor
-infoObject = pygame.display.Info()
-screen = pygame.display.set_mode((infoObject.current_w,infoObject.current_h), pygame.FULLSCREEN)  # Full screen 
-background = pygame.Surface(screen.get_size())  # Create the background object
+infoObject = pygame.display.Info() #pygame.display.Info sert à créer un objet d'information video destiné à l'affichage
+screen = pygame.display.set_mode((infoObject.current_w,infoObject.current_h), pygame.FULLSCREEN)  # Full screen ; display.set_mode initialise une fenetre ou écran pour un affichage
+background = pygame.Surface(screen.get_size())  # Create the background object ; pygame.Surface va créer un nouvel objet image avec la taille pour arguments. Screen est une variable-
 background = background.convert()  # Convert it to a background
 
 screenPicture = pygame.display.set_mode((infoObject.current_w,infoObject.current_h), pygame.FULLSCREEN)  # Full screen
@@ -94,7 +94,7 @@ def input(events):
                 (event.type == KEYDOWN and event.key == K_ESCAPE)):
             pygame.quit()
 
-#À quoi sert cette première fonction ? Simplement à quitter en cas d'appui sur une touche ?
+#À quoi sert cette première fonction input ? Simplement à quitter en cas d'appui sur une touche ?
             
 # set variables to properly display the image on screen at right ratio
 def set_demensions(img_w, img_h):
@@ -166,7 +166,7 @@ def DisplayText(fontSize, textToDisplay): #À quoi sert cette fonction ? Qu'est-
             textpos.centerx = background.get_rect().centerx
             textpos.centery = background.get_rect().centery
             if(ImageShowed):
-                    backgroundPicture.blit(text, textpos)
+                    backgroundPicture.blit(text, textpos) #blit est une fonction de pygame
             else:
                     background.blit(text, textpos)
                 

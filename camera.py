@@ -7,7 +7,7 @@ import PIL.Image
 import cups
 import RPi.GPIO as GPIO
 
-from threading import Thread #Import des librairies
+from threading import Thread #Import d'une fonction dans chacunes des librairies suivantes
 from pygame.locals import *
 from time import sleep
 from PIL import Image, ImageDraw
@@ -26,7 +26,8 @@ PhotosPerCart = 30  # Selphy takes 16 sheets per tray
 imagecounter = 0
 imagefolder = 'Photos'
 usbfolder = '/media/pi/YELLOW 15GO/Photobooth'
-templatePath = os.path.join('Photos', 'Template', "1anSam.jpg") #Path of template image - La variable templatePath sera l'image .jpg. Qu'est ce que signifie la partie os.path.join, et comment expliquer la construction des paramètres entre parenthèses ?
+templatePath = os.path.join('Photos', 'Template', "1anSam.jpg") #Path of template image - Va construire le chemin en joignant les paramètres entre quote pour que la variable templatePath soit le document qui sera trouvé en suivant le chemin
+
 ImageShowed = False
 Printing = False
 BUTTON_PIN = 25
@@ -137,14 +138,14 @@ def InitFolder(): #Cette fonction semble srevir à définir le dossier "images" 
     Message = ''
 
     #check image folder existing, create if not exists
-    if not os.path.isdir(imagefolder):  
-        os.makedirs(imagefolder)    
+    if not os.path.isdir(imagefolder):  #Si la fonction os.path.isdir se vérifie, elle renverra TRUE. Donc si le path "Photos" n'existe pas...
+        os.makedirs(imagefolder)    #...alors il est créé. En effet, la variable imagefolder correspond au dossier 'Photos' défini en début de programme.
             
-    imagefolder2 = os.path.join(imagefolder, 'images')
-    if not os.path.isdir(imagefolder2):
-        os.makedirs(imagefolder2)
+    imagefolder2 = os.path.join(imagefolder, 'images') #Construction du path /images
+    if not os.path.isdir(imagefolder2): #Si la fonction ne se vérifie pas...
+        os.makedirs(imagefolder2) #Alors on créé le chemin contenu dans la variable imagefolder2
         
-def DisplayText(fontSize, textToDisplay): #À quoi sert cette fonction ? Qu'est-ce que fontSize et textToDisplay ?
+def DisplayText(fontSize, textToDisplay): #À quoi sert cette fonction en commentaire tout le temps ? Qu'est-ce que fontSize et textToDisplay ?
     global Numeral
     global Message
     global screen
@@ -193,7 +194,7 @@ def UpdateDisplay(): #À quoi sert cette fonction ?
     if (Message != ""):
             #print(displaytext)
             font = pygame.font.Font(None, 120) # Modif taille texte
-            text = font.render(Message, 1, (227, 157, 200)) #Modif couleur texte
+            text = font.render(Message, 1, (227, 157, 200)) #Modif couleur texte ; font.render va écrire du texte sur une nouvelle "surface"
             textpos = text.get_rect()
             textpos.centerx = background.get_rect().centerx
             textpos.centery = background.get_rect().centery
@@ -240,7 +241,7 @@ def ShowPicture(file, delay):
     global screenPicture
     global backgroundPicture
     global ImageShowed
-    backgroundPicture.fill((0, 0, 0))
+    backgroundPicture.fill((0, 0, 0)) #Qu'est ce que le .fill ?
     img = pygame.image.load(file)
     img = pygame.transform.scale(img, screenPicture.get_size())  # Make the image full screen
     #backgroundPicture.set_alpha(200)
@@ -298,7 +299,7 @@ def CapturePicture():
             time.sleep(1) 
 
 
-    for x in range(4, -1, -1):
+    for x in range(4, -1, -1): #Qu'est ce que range ?
         if x == 0:                        
             Numeral = ""
             Message = "PRENEZ LA POSE !!"
@@ -505,7 +506,7 @@ def main(threadName, *args): #À quoi sert cette fonction ? Qu'est ce que thread
             show_image('images/appuyez4.jpg') #Alors on montre l'image "appuyez4.jpg"...
             WaitForEvent() #Puis on lance la fonction aussitôt ? Si oui alors l'image est subliminale non ?
             time.sleep(0.2) #Puis on attends 0.2s
-            TakePictures() #Puis on lance la fonction TapePictures
+            TakePictures() #Puis on lance la fonction TakePictures
     GPIO.cleanup()
 
 

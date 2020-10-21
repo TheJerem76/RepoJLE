@@ -48,25 +48,39 @@ GPIO.setup(BUTTON_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP) #BUTTON_PIN est une va
 
 # initialise pygame
 #Pour info, pygame est un truc (librairie ?) qui donne la possibilité d'afficher des éléments à l'écran
-pygame.init()  # Initialise pygame
+pygame.init()  # Initialise pygame - https://devdocs.io/pygame/
 myfont = pygame.font.SysFont("monospace", 15) # Je definis mon element texte
 pygame.mouse.set_visible(False) #hide the mouse cursor
-infoObject = pygame.display.Info() #pygame.display.Info sert à créer un objet d'information video destiné à l'affichage
-screen = pygame.display.set_mode((infoObject.current_w,infoObject.current_h), pygame.FULLSCREEN)  # Full screen ; display.set_mode initialise une fenetre ou écran pour un affichage
+infoObject = pygame.display.Info() #pygame.display.Info sert à créer un objet d'information video destiné à l'affichage. Il prend pour propriétés ce qu'il trouvera dans current-h et current_y qui sont des attributs de .display.info.  Voir https://devdocs.io/pygame/ref/display#pygame.display.Info
+screen = pygame.display.set_mode((infoObject.current_w,infoObject.current_h), pygame.FULLSCREEN) 
+''' Full screen ; display.set_mode initialise une fenetre ou écran pour un affichage. Par exemple ici :
+
+Screen est la variable
+qui est égal à
+écran créé par la fonction pygame.display.set_mode
+Et avec comme propriété les tailles suivantes :
+En x : infoObject.current_w
+En y : infoObject.current_y
+
+infoObject est égal à display.info qui permet l'affichage et qui dispose de plusieurs attributs dont current_w et current_y. Par défaut, quelles sont les valeurs prises par ces attributs ?
+
+pygame.FULLSCREEN correspond à un attribut de fenêtre permettant de retirer les bordures.
+'''
+
 background = pygame.Surface(screen.get_size())  # Create the background object ; pygame.Surface va créer un nouvel objet image avec la taille pour arguments. Screen est une variable-
 background = background.convert()  # Convert it to a background
 
-screenPicture = pygame.display.set_mode((infoObject.current_w,infoObject.current_h), pygame.FULLSCREEN)  # Full screen
+screenPicture = pygame.display.set_mode((infoObject.current_w,infoObject.current_h), pygame.FULLSCREEN)  # Full screen - Idem ç la variable screen
 backgroundPicture = pygame.Surface(screenPicture.get_size())  # Create the background object
 backgroundPicture = background.convert()  # Convert it to a background
 
 transform_x = infoObject.current_w # how wide to scale the jpg when replaying
 transfrom_y = infoObject.current_h # how high to scale the jpg when replaying
-#De la ligne 49 à 63, des fonctions sont utilisées. Ce sont des fonctions propres à pygame ? Je dois donc me reporter au fonctionnement de la "librairie" que je dois chercher sur internet ?
 
-camera = picamera.PiCamera()
+camera = picamera.PiCamera() #https://picamera.readthedocs.io/en/release-1.12/api_camera.html#picamera
 # Initialise the camera object
-camera.resolution = (infoObject.current_w, infoObject.current_h)
+#camera.resolution = (infoObject.current_w, infoObject.current_h) #la résolution de la caméra prendra heigh and width de l'écran
+camera.resolution = (1200,720)
 camera.rotation              = 0
 camera.hflip                 = True
 camera.vflip                 = False
@@ -141,11 +155,12 @@ def InitFolder(): #Cette fonction semble srevir à définir le dossier "images" 
     if not os.path.isdir(imagefolder):  #Si la fonction os.path.isdir se vérifie, elle renverra TRUE. Donc si le path "Photos" n'existe pas...
         os.makedirs(imagefolder)    #...alors il est créé. En effet, la variable imagefolder correspond au dossier 'Photos' défini en début de programme.
             
-    imagefolder2 = os.path.join(imagefolder, 'images') #Construction du path /images
+    imagefolder2 = os.path.join(imagefolder, 'images') #Construction du path /images (on ajoute /image au path contenu dans imagefolder)
     if not os.path.isdir(imagefolder2): #Si la fonction ne se vérifie pas...
         os.makedirs(imagefolder2) #Alors on créé le chemin contenu dans la variable imagefolder2
         
-def DisplayText(fontSize, textToDisplay): #À quoi sert cette fonction en commentaire tout le temps ? Qu'est-ce que fontSize et textToDisplay ?
+def DisplayText(fontSize, textToDisplay): # Sert à initialiser la variable Message, Numeral ou CountDownPhoto dans la fonction UpdateDisplay. Comme ça, à l'appel de UpdateDisplay qui vient toujours après l'initialisation de l'une des trois variable, ce qui soit s'afficher s'affichera selon le type de message choisi à travers la variable utilisé.
+
     global Numeral
     global Message
     global screen
@@ -161,8 +176,8 @@ def DisplayText(fontSize, textToDisplay): #À quoi sert cette fonction en commen
             background.fill(pygame.Color("black"))
     if (textToDisplay != ""):
             #print(displaytext)
-            font = pygame.font.Font(None, fontSize)
-            text = font.render(textToDisplay, 1, (227, 157, 200))
+            font = pygame.font.Font(None, fontSize) #pygame.font.Font va cahrger la font d'un fichier défini en attribu. Si le fichier est None, alors la font sera prise par défaut. L'autre attribu correspond à la taille de la font.
+            text = font.render(textToDisplay, 1, (227, 157, 200)) #Render créer une nouvelle surface sur laquelle dessiner l'écriture. Impossible d'écrire sur plus qu'une ligne. La surface créée sera de dimentions appropriée à contenir le text. Les atributs sont : Le texte à écrire, un antialias en booleen qui correspond à des bords lisses si c'est à TRUE, la couleur (ici rose car 227 157 200) ainsi qu'en optionnel la couleur de fond du texte (surlignage je pense). Voir https://devdocs.io/pygame/ref/font#pygame.font.Font.render
             textpos = text.get_rect()
             textpos.centerx = background.get_rect().centerx
             textpos.centery = background.get_rect().centery
@@ -184,7 +199,7 @@ def UpdateDisplay(): #À quoi sert cette fonction ?
     global CountDownPhoto
    
     background.fill(pygame.Color("white"))  # White background
-    #DisplayText(100, Message)
+    #DisplayText(120, Message)
     #DisplayText(800, Numeral)
     #DisplayText(500, CountDownPhoto)
 
@@ -232,7 +247,7 @@ def UpdateDisplay(): #À quoi sert cette fonction ?
     else:
         screen.blit(background, (0, 0))
    
-    pygame.display.flip()
+    pygame.display.flip() #MàJ pour voir ce qui a été blitté (collé) sur l'écran.
     return
 
 
@@ -247,7 +262,7 @@ def ShowPicture(file, delay):
     #backgroundPicture.set_alpha(200)
     backgroundPicture.blit(img, (0,0))
     screen.blit(backgroundPicture, (0, 0))
-    pygame.display.flip()  # update the display
+    pygame.display.flip()  # update the display - MàJ pour voir ce qui a été blitté (collé) sur l'écran.
     ImageShowed = True
     time.sleep(delay)
     
@@ -260,7 +275,7 @@ def show_image(image_path): #Qu'est ce que image_path ?
     x = (infoObject.current_w / 2) - (img.get_width() / 2)
     y = (infoObject.current_h / 2) - (img.get_height() / 2)
     screen.blit(img,(x,y))
-    pygame.display.flip()
+    pygame.display.flip() #MàJ pour voir ce qui a été blitté (collé) sur l'écran.
 
 def CapturePicture():
     global imagecounter
@@ -285,7 +300,7 @@ def CapturePicture():
     UpdateDisplay()
     background.fill(pygame.Color("black"))
     screen.blit(background, (0, 0))
-    pygame.display.flip()
+    pygame.display.flip() #MàJ pour voir ce qui a été blitté (collé) sur l'écran.
     camera.start_preview()
     BackgroundColor = "black"
 
@@ -500,7 +515,7 @@ def WaitForEvent():
                             return
             time.sleep(0.2)
 
-def main(threadName, *args): #À quoi sert cette fonction ? Qu'est ce que threadName et *args ?
+def main(threadName, *args): #À quoi sert cette fonction ? *args correspond à un tuple
     InitFolder() #Lance la fonction InitFolder c'est ça ? C'est défini tout en haut
     while True: #Si le dossier est bien créé...
             show_image('images/appuyez4.jpg') #Alors on montre l'image "appuyez4.jpg"...
@@ -511,4 +526,4 @@ def main(threadName, *args): #À quoi sert cette fonction ? Qu'est ce que thread
 
 
 # launch the main thread
-Thread(target=main, args=('Main', 1)).start() #À quoi sert cette ligne ?
+Thread(target=main, args=('Main', 1)).start() # Cela représente une activité de fil d'exécution. À quoi sert cette ligne ? 

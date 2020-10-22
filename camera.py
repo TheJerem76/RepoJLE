@@ -188,7 +188,7 @@ def DisplayText(fontSize, textToDisplay): # Sert à initialiser la variable Mess
             else:
                     background.blit(text, textpos)
                 
-def UpdateDisplay(): #À quoi sert cette fonction ?
+def UpdateDisplay(): #Cette fonction va initialiser les variables BackgroundColor, Message, Numeral et CountDownPhoto selon des propriétés de couleurs et taille
     # init global variables from main thread
     global Numeral
     global Message
@@ -253,7 +253,7 @@ def UpdateDisplay(): #À quoi sert cette fonction ?
     return
 
 
-def ShowPicture(file, delay):
+def ShowPicture(file, delay): #Va montrer le cliché pris dans CapturePicture (pas de template ici)
     global pygame
     global screenPicture
     global backgroundPicture
@@ -269,7 +269,7 @@ def ShowPicture(file, delay):
     time.sleep(delay)
     
 # display one image on screen
-def show_image(image_path): #Attend en entrée la variable image_path afin de savoir quoi afficher
+def show_image(image_path): #Fonction chargée d'afficher une image. Elle attend en entrée la variable image_path (path d'un fichier photo) afin de savoir quoi afficher
     screen.fill(pygame.Color("white")) # clear the screen   
     img = pygame.image.load(image_path) # load the image
     img = img.convert() # On converti le format des pixel du fond au même format que celui de l'écran http://www.frederic-junier.org/ISN/Cours/tutoriel-pygame.html
@@ -340,7 +340,7 @@ def CapturePicture(): #Cette fonction est chargée de prendre une cliché et de 
         return filename
     
     
-def TakePictures():
+def TakePictures(): #La fonction va passer plusieurs étapes : Afficher des images informatives (faites votre plus beau sourire) + lancer la fonction CapturePicture, ouvrir la photo prise par cette fonction et la coller sur une autre image (le template thématique) et enfin enregistrer l'image finale et proposer une impression de celle-ci
         global imagecounter
         global imagefolder
         global usbfolder
@@ -422,13 +422,13 @@ def TakePictures():
         Message = ""
         #UpdateDisplay()
         Printing = False
-        WaitForPrintingEvent()
+        WaitForPrintingEvent() #On lance la fonction. Soit le compte à rebours va jusqu'à la fin, soit un appui est détecté et donc on imprime.
         Numeral = ""
         Message = ""
         print(Printing)
-        if Printing:
-                if (TotalImageCount <= PhotosPerCart):
-                        if os.path.isfile('/home/pi/Desktop/tempprint.jpg'):
+        if Printing: #Si Printing = TRUE
+                if (TotalImageCount <= PhotosPerCart): #Si le total d'images prises est inférieur ou égal au total d'image prévues par photos
+                        if os.path.isfile('/home/pi/Desktop/tempprint.jpg'): #Si le fichier existe
                                 # Open a connection to cups
                                 conn = cups.Connection()
                                 # get a list of printers
@@ -439,16 +439,16 @@ def TakePictures():
                                 UpdateDisplay()
                                 time.sleep(1)
                                 # print the buffer file
-                                printqueuelength = len(conn.getJobs())
-                                if printqueuelength > 1:
-                                        ShowPicture('/home/pi/Desktop/tempprint.jpg',5)
+                                printqueuelength = len(conn.getJobs()) #len() va retourner le nombre d'item dans un objet
+                                if printqueuelength > 1: #S'il y a + qu'un seul élément dans la file d'attente
+                                        ShowPicture('/home/pi/Desktop/tempprint.jpg',5) #Alors on montre la photo
                                         conn.enablePrinter(printer_name)
-                                        Message = "Impression impossible"                
+                                        Message = "Impression impossible" #Et on afficbhe un message   
                                         UpdateDisplay()
-                                        time.sleep(1)
-                                else:
+                                        time.sleep(1) #Et on attend une seconde
+                                else: #Sinon
                                         conn.printFile(printer_name, '/home/pi/Desktop/tempprint.jpg', "PhotoBooth", {})
-                                        countDown = 55 #On place un temps en secondes dans la variable countDown
+                                        countDown = 55 #On place un temps en secondes dans la variable countDown le temps que l'impression se termine
                                         while countDown > 0:      
                                             BackgroundColor = ""
                                             Numeral = ""
@@ -456,7 +456,7 @@ def TakePictures():
                                             UpdateDisplay()        
                                             countDown = countDown - 1
                                             time.sleep(1)          
-                else:
+                else: #Sinon, donc si le total d'images prises est supérieur au total d'image prévues par photos
                         Message = "Nous vous enverrons vos photos"
                         Numeral = ""
                         UpdateDisplay()
@@ -468,41 +468,41 @@ def TakePictures():
         UpdateDisplay()
         time.sleep(1)
 
-def MyCallback(channel):
+def MyCallback(channel): #Sert à dire de ne plus détecter d'évènements sur le pin BUTTON_PIN (25 donc) avant de repasser Printing à TRUE
     global Printing
     GPIO.remove_event_detect(BUTTON_PIN)
     Printing=True
     
-def WaitForPrintingEvent():
+def WaitForPrintingEvent(): #Chargé de retourner TRUE ou FALSE
     global BackgroundColor
     global Numeral
     global Message
-    global Printing
+    global Printing #Set à FALSE dans la fonction TakePictures mais sera modifié lors de l'appel à MyCallback
     global pygame
     countDown = 5
-    GPIO.add_event_detect(BUTTON_PIN, GPIO.RISING)
+    GPIO.add_event_detect(BUTTON_PIN, GPIO.RISING) #On bloque l'éxécution jusqu'à ce que l'évènement se produise. Voir https://deusyss.developpez.com/tutoriels/RaspberryPi/PythonEtLeGpio/
     GPIO.add_event_callback(BUTTON_PIN, MyCallback)
     
-    while Printing == False and countDown > 0:
-        if(Printing == True):
-            return
-        for event in pygame.event.get():            
-            if event.type == pygame.KEYDOWN:                
-                if event.key == pygame.K_DOWN:
-                    GPIO.remove_event_detect(BUTTON_PIN)
-                    Printing = True
-                    return        
-        BackgroundColor = ""
-        Numeral = str(countDown)
+    while Printing == False and countDown > 0: #Tant que Printing = False et que countDown > 0, on exécute la boucle
+        if(Printing == True): #Mais si Printing = True...
+            return #...alors on retourne TRUE
+        for event in pygame.event.get(): #Pour les événements dans la queue...           
+            if event.type == pygame.KEYDOWN: #On lit la queue, s'il y a la flèche du bas...                
+                if event.key == pygame.K_DOWN: 
+                    GPIO.remove_event_detect(BUTTON_PIN) #Alors on retire cet évènement de la queue...
+                    Printing = True #...Et on passe Printing à TRUE
+                    return #Puis en renvoie TRUE       
+        BackgroundColor = "" 
+        Numeral = str(countDown) #Sinon on affiche le compte à rebours
         Message = ""
-        UpdateDisplay()        
-        countDown = countDown - 1
-        time.sleep(1)
+        UpdateDisplay() #On met à jour       
+        countDown = countDown - 1 #On décrémente
+        time.sleep(1) #on attends 1s
         
-    GPIO.remove_event_detect(BUTTON_PIN)
+    GPIO.remove_event_detect(BUTTON_PIN) #On nettoie la queue d'évènements
         
     
-def WaitForEvent():
+def WaitForEvent(): #Est chargé de retourner TRUE ou FALSE
     global pygame
     NotEvent = True #initialisation de la variable NotEvent à TRUE. Il n'y a pas d'événement.
     while NotEvent: #tant qu'il n'y a pas d'évènement.... Tant que NotEvent est au statut défini au-dessus

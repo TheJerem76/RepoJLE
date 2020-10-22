@@ -1,3 +1,5 @@
+#Pour les tests et tuto, voir aussi https://www.w3schools.com/python/default.asp
+
 import picamera #Import des librairies
 import pygame #pygame sert à l'affichage
 import datetime
@@ -40,11 +42,11 @@ IMAGE_HEIGHT = 619
 
 
 # Load the background template
-bgimage = PIL.Image.open(templatePath) #La variable bgimage sera le contenu de la variable templatePath c'est ça ?
+bgimage = PIL.Image.open(templatePath) #La variable bgimage ouvre l'image ayant pour nom templatePath
 
 #Setup GPIO
-GPIO.setmode(GPIO.BCM) # Cela signifie que le comptage des PIN se fera selon l'approche de numérotation électronique de la carte RPI.
-GPIO.setup(BUTTON_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP) #BUTTON_PIN est une variable = 25. Ici on set le pin 25 en entrée
+GPIO.setmode(GPIO.BCM) # Cela signifie que le comptage des PIN se fera selon l'approche de numérotation électronique de la carte RPI. Voir https://deusyss.developpez.com/tutoriels/RaspberryPi/PythonEtLeGpio/#LIII-A
+GPIO.setup(BUTTON_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP) #BUTTON_PIN est une variable = 25 définie en ligne.35. Ici on set le pin 25 en entrée
 
 # initialise pygame
 #Pour info, pygame est un truc (librairie ?) qui donne la possibilité d'afficher des éléments à l'écran
@@ -68,11 +70,11 @@ pygame.FULLSCREEN correspond à un attribut de fenêtre permettant de retirer le
 '''
 
 background = pygame.Surface(screen.get_size())  # Create the background object ; pygame.Surface va créer un nouvel objet image avec la taille pour arguments. Screen est une variable-
-background = background.convert()  # Convert it to a background
+background = background.convert()  # Convert it to a background - Pour que le format de pixel soit identique entre le fond et le background
 
 screenPicture = pygame.display.set_mode((infoObject.current_w,infoObject.current_h), pygame.FULLSCREEN)  # Full screen - Idem ç la variable screen
 backgroundPicture = pygame.Surface(screenPicture.get_size())  # Create the background object
-backgroundPicture = background.convert()  # Convert it to a background
+backgroundPicture = background.convert()  # Convert it to a background - Pour que le format de pixel soit identique entre le fond et le background
 
 transform_x = infoObject.current_w # how wide to scale the jpg when replaying
 transfrom_y = infoObject.current_h # how high to scale the jpg when replaying
@@ -112,7 +114,7 @@ def input(events):
 #À quoi sert cette première fonction input ? Simplement à quitter en cas d'appui sur une touche ?
             
 # set variables to properly display the image on screen at right ratio
-def set_demensions(img_w, img_h):
+def set_demensions(img_w, img_h): #Fonction utile que dans la fonction show_image pour que la dimention d'afficahge soit correcte.
     # Note this only works when in booting in desktop mode. 
     # When running in terminal, the size is not correct (it displays small). Why?
 
@@ -143,7 +145,7 @@ def set_demensions(img_w, img_h):
         transform_y = infoObject.current_h
         offset_y = offset_x = 0
 
-def InitFolder(): #Cette fonction semble srevir à définir le dossier "images" afin de stoker les photos
+def InitFolder(): #Cette fonction semble servir à définir le dossier "images" afin de stoker les photos
     global imagefolder
     global Message
  
@@ -177,12 +179,12 @@ def DisplayText(fontSize, textToDisplay): # Sert à initialiser la variable Mess
     if (textToDisplay != ""):
             #print(displaytext)
             font = pygame.font.Font(None, fontSize) #pygame.font.Font va cahrger la font d'un fichier défini en attribu. Si le fichier est None, alors la font sera prise par défaut. L'autre attribu correspond à la taille de la font.
-            text = font.render(textToDisplay, 1, (227, 157, 200)) #Render créer une nouvelle surface sur laquelle dessiner l'écriture. Impossible d'écrire sur plus qu'une ligne. La surface créée sera de dimentions appropriée à contenir le text. Les atributs sont : Le texte à écrire, un antialias en booleen qui correspond à des bords lisses si c'est à TRUE, la couleur (ici rose car 227 157 200) ainsi qu'en optionnel la couleur de fond du texte (surlignage je pense). Voir https://devdocs.io/pygame/ref/font#pygame.font.Font.render
-            textpos = text.get_rect()
-            textpos.centerx = background.get_rect().centerx
-            textpos.centery = background.get_rect().centery
+            text = font.render(textToDisplay, 1, (227, 157, 200)) #Render créer une nouvelle surface sur laquelle dessiner l'écriture. Impossible d'écrire sur plus qu'une ligne. La surface créée sera de dimentions appropriée à contenir le text. Les atributs sont : Le texte à écrire, un antialias en booleen qui correspond à des bords lisses si c'est à TRUE, la couleur (ici rose car 227 157 200) ainsi qu'en optionnel la couleur de fond du texte (surlignage je pense). La variable text va donc contenir les propriété de choisies. Voir https://devdocs.io/pygame/ref/font#pygame.font.Font.render
+            textpos = text.get_rect() #Récupération du rectangle nécessaire à l'afficahge de la variable text http://www.frederic-junier.org/ISN/Cours/tutoriel-pygame.html
+            textpos.centerx = background.get_rect().centerx #Positionnement du rectangle http://www.frederic-junier.org/ISN/Cours/tutoriel-pygame.html
+            textpos.centery = background.get_rect().centery #Positionnement du rectangle http://www.frederic-junier.org/ISN/Cours/tutoriel-pygame.html
             if(ImageShowed):
-                    backgroundPicture.blit(text, textpos) #blit est une fonction de pygame
+                    backgroundPicture.blit(text, textpos) #blit est une fonction de pygame qui superpose text avec textpos
             else:
                     background.blit(text, textpos)
                 
@@ -267,17 +269,17 @@ def ShowPicture(file, delay):
     time.sleep(delay)
     
 # display one image on screen
-def show_image(image_path): #Qu'est ce que image_path ?
+def show_image(image_path): #Attend en entrée la variable image_path afin de savoir quoi afficher
     screen.fill(pygame.Color("white")) # clear the screen   
     img = pygame.image.load(image_path) # load the image
-    img = img.convert()
+    img = img.convert() # On converti le format des pixel du fond au même format que celui de l'écran http://www.frederic-junier.org/ISN/Cours/tutoriel-pygame.html
     set_demensions(img.get_width(), img.get_height()) # set pixel dimensions based on image 
     x = (infoObject.current_w / 2) - (img.get_width() / 2)
     y = (infoObject.current_h / 2) - (img.get_height() / 2)
-    screen.blit(img,(x,y))
+    screen.blit(img,(x,y)) #Va dessiner au sein d'une surface le contenu de img en fonction des positions définies en x et y.
     pygame.display.flip() #MàJ pour voir ce qui a été blitté (collé) sur l'écran.
 
-def CapturePicture():
+def CapturePicture(): #Cette fonction est chargée de prendre une cliché et de retourner son nom.
     global imagecounter
     global imagefolder
     global Numeral
@@ -301,20 +303,20 @@ def CapturePicture():
     background.fill(pygame.Color("black"))
     screen.blit(background, (0, 0))
     pygame.display.flip() #MàJ pour voir ce qui a été blitté (collé) sur l'écran.
-    camera.start_preview()
+    camera.start_preview() # Lancement de l'aperçu
     BackgroundColor = "black"
 
     countDown = 6 #On place un temps en secondes dans la variable countDown
     while countDown > 0:      
             BackgroundColor = ""
             Numeral = ""
-            Message = "Souriez ! Photo dans " + str(countDown) #On affiche impression en cours + le compteur
+            Message = "Souriez ! Photo dans " + str(countDown) #On affiche le message + le compteur
             UpdateDisplay()        
             countDown = countDown - 1
             time.sleep(1) 
 
 
-    for x in range(4, -1, -1): #Qu'est ce que range ?
+    for x in range(4, -1, -1): # Pour x compris dans un écart qui commence à 4(optionnal), s'arrête à -1 (required), avec un écart de -1 (optionnal) https://www.w3schools.com/python/ref_func_range.asp
         if x == 0:                        
             Numeral = ""
             Message = "PRENEZ LA POSE !!"
@@ -332,7 +334,7 @@ def CapturePicture():
         ts = datetime.now()
         filename = os.path.join(imagefolder, 'images', str(imagecounter)+"_"+str(ts.strftime("%d-%m-%Y %H:%M:%S")) + '.jpg')
         camera.capture(filename, resize=(IMAGE_WIDTH, IMAGE_HEIGHT)) # Le resize est non mandatory pour cette fonction
-        camera.stop_preview()
+        camera.stop_preview() # Fin de l'aperçu
         ShowPicture(filename, 2)
         ImageShowed = False
         return filename
@@ -361,7 +363,9 @@ def TakePictures():
         #CountDownPhoto = "Prennez la pose et souriez !" #ancienne ligne de code : CountDownPhoto = "1/3"
 
         
-        filename1 = CapturePicture()
+        filename1 = CapturePicture() # La variable filename1 sera égale au résultat obtenu suite au lancement de la fonction CapturePicture, c'est à dire au nom de la photo.
+
+#A la suite de cette ligne, les opératons de placement de la photo sur le template + renommage  + enregistrement de la photo vont se lancer. La partie impression de la photo est également proposée.
 
         #CountDownPhoto = "2/3"
         #filename2 = CapturePicture()
@@ -374,12 +378,12 @@ def TakePictures():
         UpdateDisplay()
         
 
-        image1 = PIL.Image.open(filename1)
+        image1 = PIL.Image.open(filename1) # On ouvre la photo
         #image2 = PIL.Image.open(filename2)
         #image3 = PIL.Image.open(filename3)   
         TotalImageCount = TotalImageCount + 1
     
-        bgimage.paste(image1, (40, 40))  # Plus x est petit, plus l'image est sur la gauche ; y petit = image en haut
+        bgimage.paste(image1, (40, 40))  # Puis on place la photo image1 sur le template thématique (1 an Sam). Plus x est petit, plus l'image est sur la gauche ; y petit = image en haut
         #bgimage.paste(image1, (625, 30))
         #bgimage.paste(image2, (625, 410))
         #bgimage.paste(image3, (55, 410))
@@ -500,30 +504,30 @@ def WaitForPrintingEvent():
     
 def WaitForEvent():
     global pygame
-    NotEvent = True
-    while NotEvent:
-            input_state = GPIO.input(BUTTON_PIN)
-            if input_state == False:
-                    NotEvent = False            
-                    return
-            for event in pygame.event.get():            
-                    if event.type == pygame.KEYDOWN:
-                        if event.key == pygame.K_ESCAPE:
-                            pygame.quit()
-                        if event.key == pygame.K_DOWN:
-                            NotEvent = False
-                            return
+    NotEvent = True #initialisation de la variable NotEvent à TRUE. Il n'y a pas d'événement.
+    while NotEvent: #tant qu'il n'y a pas d'évènement.... Tant que NotEvent est au statut défini au-dessus
+            input_state = GPIO.input(BUTTON_PIN) #...alors on va lire le PIN. Correspond à TRUE. La variable input_state correspond à le lecture de l'entrée BUTTON_PIN (25). Voir https://deusyss.developpez.com/tutoriels/RaspberryPi/PythonEtLeGpio/#LIII-A
+            if input_state == False: #Si l'état change (appui sur le bouton)...
+                    NotEvent = False #Alors on indique cette variable change.           
+                    return #On retourne l'état
+            for event in pygame.event.get(): #pygame.event.get() va lire les évènements en attente dans la queue ainsi que les y retirer.           
+                    if event.type == pygame.KEYDOWN: #Si dans la queue il y a un appui sur la flèche du bas sur le clavier alors on attends 0.2s (fin de la fonction)
+                        if event.key == pygame.K_ESCAPE: #Mais si il y a un appui sur la touche echap https://www.pygame.org/docs/ref/key.html#comment_pygame_key_name
+                            pygame.quit() #Alors on quitte le programme
+                        if event.key == pygame.K_DOWN: #Toutefois s'il y a un appuisur la flèche du bas
+                            NotEvent = False #Alors on change l'état et donc on attend 0.2s
+                            return #On retourne l'état
             time.sleep(0.2)
 
-def main(threadName, *args): #À quoi sert cette fonction ? *args correspond à un tuple
+def main(threadName, *args): # *args correspond à un tuple qui peut donc contenir plusieurs arguments quels qu'ils soient, var, string, float, etc.
     InitFolder() #Lance la fonction InitFolder c'est ça ? C'est défini tout en haut
-    while True: #Si le dossier est bien créé...
+    while True: #Tant que WaitForEvent renvoie TRUE
             show_image('images/appuyez4.jpg') #Alors on montre l'image "appuyez4.jpg"...
-            WaitForEvent() #Puis on lance la fonction aussitôt ? Si oui alors l'image est subliminale non ?
+            WaitForEvent() #Puis on lance (arrière plan) la fonction qui bloque la fonction tant qu'il n'y a pas d'appui
             time.sleep(0.2) #Puis on attends 0.2s
             TakePictures() #Puis on lance la fonction TakePictures
     GPIO.cleanup()
 
 
 # launch the main thread
-Thread(target=main, args=('Main', 1)).start() # Cela représente une activité de fil d'exécution. À quoi sert cette ligne ? 
+Thread(target=main, args=('Main', 1)).start() # Cela représente la fonction principale du programme. C'est une activité de fil d'exécution qui va lancer la fonction main.

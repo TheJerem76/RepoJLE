@@ -49,7 +49,7 @@ GPIO.setmode(GPIO.BCM) # Cela signifie que le comptage des PIN se fera selon l'a
 GPIO.setup(BUTTON_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP) #BUTTON_PIN est une variable = 25 définie en ligne.35. Ici on set le pin 25 en entrée
 
 # initialise pygame
-#Pour info, pygame est un truc (librairie ?) qui donne la possibilité d'afficher des éléments à l'écran
+#Pour info, pygame est un truc qui donne la possibilité d'afficher des éléments à l'écran
 pygame.init()  # Initialise pygame - https://devdocs.io/pygame/
 myfont = pygame.font.SysFont("monospace", 15) # Je definis mon element texte
 pygame.mouse.set_visible(False) #hide the mouse cursor

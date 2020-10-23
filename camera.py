@@ -480,8 +480,8 @@ def WaitForPrintingEvent(): #Chargé de retourner TRUE ou FALSE
     global Printing #Set à FALSE dans la fonction TakePictures mais sera modifié lors de l'appel à MyCallback
     global pygame
     countDown = 5
-    GPIO.add_event_detect(BUTTON_PIN, GPIO.RISING) #On bloque l'éxécution jusqu'à ce que l'évènement se produise. Voir https://deusyss.developpez.com/tutoriels/RaspberryPi/PythonEtLeGpio/
-    GPIO.add_event_callback(BUTTON_PIN, MyCallback)
+    GPIO.add_event_detect(BUTTON_PIN, GPIO.RISING) #On bloque l'éxécution jusqu'à ce que l'évènement (appui sur une touche) se produise (sur pin 25). Voir https://deusyss.developpez.com/tutoriels/RaspberryPi/PythonEtLeGpio/
+    GPIO.add_event_callback(BUTTON_PIN, MyCallback) #On ajoute l'évènement de retrait d'écoute d'evènement
     
     while Printing == False and countDown > 0: #Tant que Printing = False et que countDown > 0, on exécute la boucle
         if(Printing == True): #Mais si Printing = True...

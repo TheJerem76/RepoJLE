@@ -1,7 +1,7 @@
 #Pour les tests et tuto, voir aussi https://www.w3schools.com/python/default.asp
 
 import picamera #Import des librairies
-import pygame #pygame sert à l'affichage
+import pygame #pygame sert a l'affichage
 import datetime
 import time
 import os
@@ -16,7 +16,7 @@ from PIL import Image, ImageDraw
 from datetime import datetime
 
 
-# Définition des variables
+# Definition des variables
 Numeral = ""  # Numeral is the number display
 Message = ""  # Message is a fullscreen message
 BackgroundColor = ""
@@ -28,7 +28,7 @@ PhotosPerCart = 30  # Selphy takes 16 sheets per tray
 imagecounter = 0
 imagefolder = 'Photos'
 usbfolder = '/media/pi/YELLOW 15GO/Photobooth'
-templatePath = os.path.join('Photos', 'Template', "1anSam.jpg") #Path of template image - Va construire le chemin en joignant les paramètres entre quote pour que la variable templatePath soit le document qui sera trouvé en suivant le chemin
+templatePath = os.path.join('Photos', 'Template', "1anSam.jpg") #Path of template image - Va construire le chemin en joignant les parametres entre quote pour que la variable templatePath soit le document qui sera trouve en suivant le chemin
 
 ImageShowed = False
 Printing = False
@@ -37,7 +37,7 @@ BUTTON_PIN = 25
 #IMAGE_HEIGHT = 374
 #IMAGE_WIDTH = 550
 #IMAGE_HEIGHT = 360
-IMAGE_WIDTH = 1100 # Base d'un ratio 16/9 ; utilisé pour un resize en ligne 318
+IMAGE_WIDTH = 1100 # Base d'un ratio 16/9 ; utilise pour un resize en ligne 318
 IMAGE_HEIGHT = 619
 
 
@@ -45,31 +45,31 @@ IMAGE_HEIGHT = 619
 bgimage = PIL.Image.open(templatePath) #La variable bgimage ouvre l'image ayant pour nom templatePath
 
 #Setup GPIO
-GPIO.setmode(GPIO.BCM) # Cela signifie que le comptage des PIN se fera selon l'approche de numérotation électronique de la carte RPI. Voir https://deusyss.developpez.com/tutoriels/RaspberryPi/PythonEtLeGpio/#LIII-A
-GPIO.setup(BUTTON_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP) #BUTTON_PIN est une variable = 25 définie en ligne.35. Ici on set le pin 25 en entrée
+GPIO.setmode(GPIO.BCM) # Cela signifie que le comptage des PIN se fera selon l'approche de numerotation electronique de la carte RPI. Voir https://deusyss.developpez.com/tutoriels/RaspberryPi/PythonEtLeGpio/#LIII-A
+GPIO.setup(BUTTON_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP) #BUTTON_PIN est une variable = 25 definie en ligne.35. Ici on set le pin 25 en entree
 
 # initialise pygame
-#Pour info, pygame est un truc qui donne la possibilité d'afficher des éléments à l'écran
+#Pour info, pygame est un truc qui donne la possibilite d'afficher des elements a l'ecran
 pygame.init()  # Initialise pygame - https://devdocs.io/pygame/
 myfont = pygame.font.SysFont("monospace", 15) # Je definis mon element texte
 pygame.mouse.set_visible(False) #hide the mouse cursor
-infoObject = pygame.display.Info() #pygame.display.Info sert à créer un objet d'information video destiné à l'affichage. Il prend pour propriétés ce qu'il trouvera dans current-h et current_y qui sont des attributs de .display.info.  Voir https://devdocs.io/pygame/ref/display#pygame.display.Info
+infoObject = pygame.display.Info() #pygame.display.Info sert a creer un objet d'information video destine a l'affichage. Il prend pour proprietes ce qu'il trouvera dans current-h et current_y qui sont des attributs de .display.info.  Voir https://devdocs.io/pygame/ref/display#pygame.display.Info
 screen = pygame.display.set_mode((infoObject.current_w,infoObject.current_h), pygame.FULLSCREEN) 
-''' Full screen ; display.set_mode initialise une fenetre ou écran pour un affichage. Par exemple ici :
+''' Full screen ; display.set_mode initialise une fenetre ou ecran pour un affichage. Par exemple ici :
 
 Screen est la variable
-qui est égal à
-écran créé par la fonction pygame.display.set_mode
-Et avec comme propriété les tailles suivantes :
+qui est egal a
+ecran cree par la fonction pygame.display.set_mode
+Et avec comme propriete les tailles suivantes :
 En x : infoObject.current_w
 En y : infoObject.current_y
 
-infoObject est égal à display.info qui permet l'affichage et qui dispose de plusieurs attributs dont current_w et current_y. Par défaut, quelles sont les valeurs prises par ces attributs ?
+infoObject est egal a display.info qui permet l'affichage et qui dispose de plusieurs attributs dont current_w et current_y. Par defaut, quelles sont les valeurs prises par ces attributs ?
 
-pygame.FULLSCREEN correspond à un attribut de fenêtre permettant de retirer les bordures.
+pygame.FULLSCREEN correspond a un attribut de fenêtre permettant de retirer les bordures.
 '''
 
-background = pygame.Surface(screen.get_size())  # Create the background object ; pygame.Surface va créer un nouvel objet image avec la taille pour arguments. Screen est une variable-
+background = pygame.Surface(screen.get_size())  # Create the background object ; pygame.Surface va creer un nouvel objet image avec la taille pour arguments. Screen est une variable-
 background = background.convert()  # Convert it to a background - Pour que le format de pixel soit identique entre le fond et le background
 
 screenPicture = pygame.display.set_mode((infoObject.current_w,infoObject.current_h), pygame.FULLSCREEN)  # Full screen - Idem ç la variable screen
@@ -81,7 +81,7 @@ transfrom_y = infoObject.current_h # how high to scale the jpg when replaying
 
 camera = picamera.PiCamera() #https://picamera.readthedocs.io/en/release-1.12/api_camera.html#picamera
 # Initialise the camera object
-#camera.resolution = (infoObject.current_w, infoObject.current_h) #la résolution de la caméra prendra heigh and width de l'écran
+#camera.resolution = (infoObject.current_w, infoObject.current_h) #la resolution de la camera prendra heigh and width de l'ecran
 camera.resolution = (1200,720)
 camera.rotation              = 0
 camera.hflip                 = True
@@ -111,7 +111,7 @@ def input(events):
                 (event.type == KEYDOWN and event.key == K_ESCAPE)):
             pygame.quit()
 
-#À quoi sert cette première fonction input ? Simplement à quitter en cas d'appui sur une touche ?
+#a quoi sert cette premiere fonction input ? Simplement a quitter en cas d'appui sur une touche ?
             
 # set variables to properly display the image on screen at right ratio
 def set_demensions(img_w, img_h): #Fonction utile que dans la fonction show_image pour que la dimention d'afficahge soit correcte.
@@ -145,7 +145,7 @@ def set_demensions(img_w, img_h): #Fonction utile que dans la fonction show_imag
         transform_y = infoObject.current_h
         offset_y = offset_x = 0
 
-def InitFolder(): #Cette fonction semble servir à définir le dossier "images" afin de stoker les photos
+def InitFolder(): #Cette fonction semble servir a definir le dossier "images" afin de stoker les photos
     global imagefolder
     global Message
  
@@ -154,14 +154,14 @@ def InitFolder(): #Cette fonction semble servir à définir le dossier "images" 
     Message = ''
 
     #check image folder existing, create if not exists
-    if not os.path.isdir(imagefolder):  #Si la fonction os.path.isdir se vérifie, elle renverra TRUE. Donc si le path "Photos" n'existe pas...
-        os.makedirs(imagefolder)    #...alors il est créé. En effet, la variable imagefolder correspond au dossier 'Photos' défini en début de programme.
+    if not os.path.isdir(imagefolder):  #Si la fonction os.path.isdir se verifie, elle renverra TRUE. Donc si le path "Photos" n'existe pas...
+        os.makedirs(imagefolder)    #...alors il est cree. En effet, la variable imagefolder correspond au dossier 'Photos' defini en debut de programme.
             
     imagefolder2 = os.path.join(imagefolder, 'images') #Construction du path /images (on ajoute /image au path contenu dans imagefolder)
-    if not os.path.isdir(imagefolder2): #Si la fonction ne se vérifie pas...
-        os.makedirs(imagefolder2) #Alors on créé le chemin contenu dans la variable imagefolder2
+    if not os.path.isdir(imagefolder2): #Si la fonction ne se verifie pas...
+        os.makedirs(imagefolder2) #Alors on cree le chemin contenu dans la variable imagefolder2
         
-def DisplayText(fontSize, textToDisplay): # Sert à initialiser la variable Message, Numeral ou CountDownPhoto dans la fonction UpdateDisplay. Comme ça, à l'appel de UpdateDisplay qui vient toujours après l'initialisation de l'une des trois variable, ce qui soit s'afficher s'affichera selon le type de message choisi à travers la variable utilisé.
+def DisplayText(fontSize, textToDisplay): # Sert a initialiser la variable Message, Numeral ou CountDownPhoto dans la fonction UpdateDisplay. Comme ça, a l'appel de UpdateDisplay qui vient toujours apres l'initialisation de l'une des trois variable, ce qui soit s'afficher s'affichera selon le type de message choisi a travers la variable utilise.
 
     global Numeral
     global Message
@@ -178,9 +178,9 @@ def DisplayText(fontSize, textToDisplay): # Sert à initialiser la variable Mess
             background.fill(pygame.Color("black"))
     if (textToDisplay != ""):
             #print(displaytext)
-            font = pygame.font.Font(None, fontSize) #pygame.font.Font va cahrger la font d'un fichier défini en attribu. Si le fichier est None, alors la font sera prise par défaut. L'autre attribu correspond à la taille de la font.
-            text = font.render(textToDisplay, 1, (227, 157, 200)) #Render créer une nouvelle surface sur laquelle dessiner l'écriture. Impossible d'écrire sur plus qu'une ligne. La surface créée sera de dimentions appropriée à contenir le text. Les atributs sont : Le texte à écrire, un antialias en booleen qui correspond à des bords lisses si c'est à TRUE, la couleur (ici rose car 227 157 200) ainsi qu'en optionnel la couleur de fond du texte (surlignage je pense). La variable text va donc contenir les propriété de choisies. Voir https://devdocs.io/pygame/ref/font#pygame.font.Font.render
-            textpos = text.get_rect() #Récupération du rectangle nécessaire à l'afficahge de la variable text http://www.frederic-junier.org/ISN/Cours/tutoriel-pygame.html
+            font = pygame.font.Font(None, fontSize) #pygame.font.Font va cahrger la font d'un fichier defini en attribu. Si le fichier est None, alors la font sera prise par defaut. L'autre attribu correspond a la taille de la font.
+            text = font.render(textToDisplay, 1, (227, 157, 200)) #Render creer une nouvelle surface sur laquelle dessiner l'ecriture. Impossible d'ecrire sur plus qu'une ligne. La surface creee sera de dimentions appropriee a contenir le text. Les atributs sont : Le texte a ecrire, un antialias en booleen qui correspond a des bords lisses si c'est a TRUE, la couleur (ici rose car 227 157 200) ainsi qu'en optionnel la couleur de fond du texte (surlignage je pense). La variable text va donc contenir les propriete de choisies. Voir https://devdocs.io/pygame/ref/font#pygame.font.Font.render
+            textpos = text.get_rect() #Recuperation du rectangle necessaire a l'afficahge de la variable text http://www.frederic-junier.org/ISN/Cours/tutoriel-pygame.html
             textpos.centerx = background.get_rect().centerx #Positionnement du rectangle http://www.frederic-junier.org/ISN/Cours/tutoriel-pygame.html
             textpos.centery = background.get_rect().centery #Positionnement du rectangle http://www.frederic-junier.org/ISN/Cours/tutoriel-pygame.html
             if(ImageShowed):
@@ -188,7 +188,7 @@ def DisplayText(fontSize, textToDisplay): # Sert à initialiser la variable Mess
             else:
                     background.blit(text, textpos)
                 
-def UpdateDisplay(): #Cette fonction va initialiser les variables BackgroundColor, Message, Numeral et CountDownPhoto selon des propriétés de couleurs et taille
+def UpdateDisplay(): #Cette fonction va initialiser les variables BackgroundColor, Message, Numeral et CountDownPhoto selon des proprietes de couleurs et taille
     # init global variables from main thread
     global Numeral
     global Message
@@ -211,7 +211,7 @@ def UpdateDisplay(): #Cette fonction va initialiser les variables BackgroundColo
     if (Message != ""):
             #print(displaytext)
             font = pygame.font.Font(None, 120) # Modif taille texte
-            text = font.render(Message, 1, (227, 157, 200)) #Modif couleur texte ; font.render va écrire du texte sur une nouvelle "surface"
+            text = font.render(Message, 1, (227, 157, 200)) #Modif couleur texte ; font.render va ecrire du texte sur une nouvelle "surface"
             textpos = text.get_rect()
             textpos.centerx = background.get_rect().centerx
             textpos.centery = background.get_rect().centery
@@ -249,11 +249,11 @@ def UpdateDisplay(): #Cette fonction va initialiser les variables BackgroundColo
     else:
         screen.blit(background, (0, 0))
    
-    pygame.display.flip() #MàJ pour voir ce qui a été blitté (collé) sur l'écran.
+    pygame.display.flip() #MaJ pour voir ce qui a ete blitte (colle) sur l'ecran.
     return
 
 
-def ShowPicture(file, delay): #Va montrer le cliché pris dans CapturePicture (pas de template ici)
+def ShowPicture(file, delay): #Va montrer le cliche pris dans CapturePicture (pas de template ici)
     global pygame
     global screenPicture
     global backgroundPicture
@@ -264,22 +264,22 @@ def ShowPicture(file, delay): #Va montrer le cliché pris dans CapturePicture (p
     #backgroundPicture.set_alpha(200)
     backgroundPicture.blit(img, (0,0))
     screen.blit(backgroundPicture, (0, 0))
-    pygame.display.flip()  # update the display - MàJ pour voir ce qui a été blitté (collé) sur l'écran.
+    pygame.display.flip()  # update the display - MaJ pour voir ce qui a ete blitte (colle) sur l'ecran.
     ImageShowed = True
     time.sleep(delay)
     
 # display one image on screen
-def show_image(image_path): #Fonction chargée d'afficher une image. Elle attend en entrée la variable image_path (path d'un fichier photo) afin de savoir quoi afficher
+def show_image(image_path): #Fonction chargee d'afficher une image. Elle attend en entree la variable image_path (path d'un fichier photo) afin de savoir quoi afficher
     screen.fill(pygame.Color("white")) # clear the screen   
     img = pygame.image.load(image_path) # load the image
-    img = img.convert() # On converti le format des pixel du fond au même format que celui de l'écran http://www.frederic-junier.org/ISN/Cours/tutoriel-pygame.html
+    img = img.convert() # On converti le format des pixel du fond au même format que celui de l'ecran http://www.frederic-junier.org/ISN/Cours/tutoriel-pygame.html
     set_demensions(img.get_width(), img.get_height()) # set pixel dimensions based on image 
     x = (infoObject.current_w / 2) - (img.get_width() / 2)
     y = (infoObject.current_h / 2) - (img.get_height() / 2)
-    screen.blit(img,(x,y)) #Va dessiner au sein d'une surface le contenu de img en fonction des positions définies en x et y.
-    pygame.display.flip() #MàJ pour voir ce qui a été blitté (collé) sur l'écran.
+    screen.blit(img,(x,y)) #Va dessiner au sein d'une surface le contenu de img en fonction des positions definies en x et y.
+    pygame.display.flip() #MaJ pour voir ce qui a ete blitte (colle) sur l'ecran.
 
-def CapturePicture(): #Cette fonction est chargée de prendre une cliché et de retourner son nom.
+def CapturePicture(): #Cette fonction est chargee de prendre une cliche et de retourner son nom.
     global imagecounter
     global imagefolder
     global Numeral
@@ -302,7 +302,7 @@ def CapturePicture(): #Cette fonction est chargée de prendre une cliché et de 
     UpdateDisplay()
     background.fill(pygame.Color("black"))
     screen.blit(background, (0, 0))
-    pygame.display.flip() #MàJ pour voir ce qui a été blitté (collé) sur l'écran.
+    pygame.display.flip() #MaJ pour voir ce qui a ete blitte (colle) sur l'ecran.
     camera.start_preview() # Lancement de l'aperçu
     BackgroundColor = "black"
 
@@ -316,7 +316,7 @@ def CapturePicture(): #Cette fonction est chargée de prendre une cliché et de 
             time.sleep(1) 
 
 
-    for x in range(4, -1, -1): # Pour x compris dans un écart qui commence à 4(optionnal), s'arrête à -1 (required), avec un écart de -1 (optionnal) https://www.w3schools.com/python/ref_func_range.asp
+    for x in range(4, -1, -1): # Pour x compris dans un ecart qui commence a 4(optionnal), s'arrête a -1 (required), avec un ecart de -1 (optionnal) https://www.w3schools.com/python/ref_func_range.asp
         if x == 0:                        
             Numeral = ""
             Message = "PRENEZ LA POSE !!"
@@ -340,7 +340,7 @@ def CapturePicture(): #Cette fonction est chargée de prendre une cliché et de 
         return filename
     
     
-def TakePictures(): #La fonction va passer plusieurs étapes : Afficher des images informatives (faites votre plus beau sourire) + lancer la fonction CapturePicture, ouvrir la photo prise par cette fonction et la coller sur une autre image (le template thématique) et enfin enregistrer l'image finale et proposer une impression de celle-ci
+def TakePictures(): #La fonction va passer plusieurs etapes : Afficher des images informatives (faites votre plus beau sourire) + lancer la fonction CapturePicture, ouvrir la photo prise par cette fonction et la coller sur une autre image (le template thematique) et enfin enregistrer l'image finale et proposer une impression de celle-ci
         global imagecounter
         global imagefolder
         global usbfolder
@@ -363,9 +363,9 @@ def TakePictures(): #La fonction va passer plusieurs étapes : Afficher des imag
         #CountDownPhoto = "Prennez la pose et souriez !" #ancienne ligne de code : CountDownPhoto = "1/3"
 
         
-        filename1 = CapturePicture() # La variable filename1 sera égale au résultat obtenu suite au lancement de la fonction CapturePicture, c'est à dire au nom de la photo.
+        filename1 = CapturePicture() # La variable filename1 sera egale au resultat obtenu suite au lancement de la fonction CapturePicture, c'est a dire au nom de la photo.
 
-#A la suite de cette ligne, les opératons de placement de la photo sur le template + renommage  + enregistrement de la photo vont se lancer. La partie impression de la photo est également proposée.
+#A la suite de cette ligne, les operatons de placement de la photo sur le template + renommage  + enregistrement de la photo vont se lancer. La partie impression de la photo est egalement proposee.
 
         #CountDownPhoto = "2/3"
         #filename2 = CapturePicture()
@@ -383,7 +383,7 @@ def TakePictures(): #La fonction va passer plusieurs étapes : Afficher des imag
         #image3 = PIL.Image.open(filename3)   
         TotalImageCount = TotalImageCount + 1
     
-        bgimage.paste(image1, (40, 40))  # Puis on place la photo image1 sur le template thématique (1 an Sam). Plus x est petit, plus l'image est sur la gauche ; y petit = image en haut
+        bgimage.paste(image1, (40, 40))  # Puis on place la photo image1 sur le template thematique (1 an Sam). Plus x est petit, plus l'image est sur la gauche ; y petit = image en haut
         #bgimage.paste(image1, (625, 30))
         #bgimage.paste(image2, (625, 410))
         #bgimage.paste(image3, (55, 410))
@@ -422,12 +422,12 @@ def TakePictures(): #La fonction va passer plusieurs étapes : Afficher des imag
         Message = ""
         #UpdateDisplay()
         Printing = False
-        WaitForPrintingEvent() #On lance la fonction. Soit le compte à rebours va jusqu'à la fin, soit un appui est détecté et donc on imprime.
+        WaitForPrintingEvent() #On lance la fonction. Soit le compte a rebours va jusqu'a la fin, soit un appui est detecte et donc on imprime.
         Numeral = ""
         Message = ""
         print(Printing)
         if Printing: #Si Printing = TRUE
-                if (TotalImageCount <= PhotosPerCart): #Si le total d'images prises est inférieur ou égal au total d'image prévues par photos
+                if (TotalImageCount <= PhotosPerCart): #Si le total d'images prises est inferieur ou egal au total d'image prevues par photos
                         if os.path.isfile('/home/pi/Desktop/tempprint.jpg'): #Si le fichier existe
                                 # Open a connection to cups
                                 conn = cups.Connection()
@@ -440,7 +440,7 @@ def TakePictures(): #La fonction va passer plusieurs étapes : Afficher des imag
                                 time.sleep(1)
                                 # print the buffer file
                                 printqueuelength = len(conn.getJobs()) #len() va retourner le nombre d'item dans un objet
-                                if printqueuelength > 1: #S'il y a + qu'un seul élément dans la file d'attente
+                                if printqueuelength > 1: #S'il y a + qu'un seul element dans la file d'attente
                                         ShowPicture('/home/pi/Desktop/tempprint.jpg',5) #Alors on montre la photo
                                         conn.enablePrinter(printer_name)
                                         Message = "Impression impossible" #Et on afficbhe un message   
@@ -456,7 +456,7 @@ def TakePictures(): #La fonction va passer plusieurs étapes : Afficher des imag
                                             UpdateDisplay()        
                                             countDown = countDown - 1
                                             time.sleep(1)          
-                else: #Sinon, donc si le total d'images prises est supérieur au total d'image prévues par photos
+                else: #Sinon, donc si le total d'images prises est superieur au total d'image prevues par photos
                         Message = "Nous vous enverrons vos photos"
                         Numeral = ""
                         UpdateDisplay()
@@ -468,66 +468,66 @@ def TakePictures(): #La fonction va passer plusieurs étapes : Afficher des imag
         UpdateDisplay()
         time.sleep(1)
 
-def MyCallback(channel): #Sert à dire de ne plus détecter d'évènements sur le pin BUTTON_PIN (25 donc) avant de repasser Printing à TRUE
+def MyCallback(channel): #Sert a dire de ne plus detecter d'evenements sur le pin BUTTON_PIN (25 donc) avant de repasser Printing a TRUE
     global Printing
     GPIO.remove_event_detect(BUTTON_PIN)
     Printing=True
     
-def WaitForPrintingEvent(): #Chargé de retourner TRUE ou FALSE
+def WaitForPrintingEvent(): #Charge de retourner TRUE ou FALSE
     global BackgroundColor
     global Numeral
     global Message
-    global Printing #Set à FALSE dans la fonction TakePictures mais sera modifié lors de l'appel à MyCallback
+    global Printing #Set a FALSE dans la fonction TakePictures mais sera modifie lors de l'appel a MyCallback
     global pygame
     countDown = 5
-    GPIO.add_event_detect(BUTTON_PIN, GPIO.RISING) #On bloque l'éxécution jusqu'à ce que l'évènement (appui sur une touche) se produise (sur pin 25). Voir https://deusyss.developpez.com/tutoriels/RaspberryPi/PythonEtLeGpio/
-    GPIO.add_event_callback(BUTTON_PIN, MyCallback) #On ajoute l'évènement de retrait d'écoute d'evènement
+    GPIO.add_event_detect(BUTTON_PIN, GPIO.RISING) #On bloque l'execution jusqu'a ce que l'evenement (appui sur une touche) se produise (sur pin 25). Voir https://deusyss.developpez.com/tutoriels/RaspberryPi/PythonEtLeGpio/
+    GPIO.add_event_callback(BUTTON_PIN, MyCallback) #On ajoute l'evenement de retrait d'ecoute d'evenement
     
-    while Printing == False and countDown > 0: #Tant que Printing = False et que countDown > 0, on exécute la boucle
+    while Printing == False and countDown > 0: #Tant que Printing = False et que countDown > 0, on execute la boucle
         if(Printing == True): #Mais si Printing = True...
             return #...alors on retourne TRUE
-        for event in pygame.event.get(): #Pour les événements dans la queue...           
-            if event.type == pygame.KEYDOWN: #On lit la queue, s'il y a la flèche du bas...                
+        for event in pygame.event.get(): #Pour les evenements dans la queue...           
+            if event.type == pygame.KEYDOWN: #On lit la queue, s'il y a la fleche du bas...                
                 if event.key == pygame.K_DOWN: 
-                    GPIO.remove_event_detect(BUTTON_PIN) #Alors on retire cet évènement de la queue...
-                    Printing = True #...Et on passe Printing à TRUE
+                    GPIO.remove_event_detect(BUTTON_PIN) #Alors on retire cet evenement de la queue...
+                    Printing = True #...Et on passe Printing a TRUE
                     return #Puis en renvoie TRUE       
         BackgroundColor = "" 
-        Numeral = str(countDown) #Sinon on affiche le compte à rebours
+        Numeral = str(countDown) #Sinon on affiche le compte a rebours
         Message = ""
-        UpdateDisplay() #On met à jour       
-        countDown = countDown - 1 #On décrémente
+        UpdateDisplay() #On met a jour       
+        countDown = countDown - 1 #On decremente
         time.sleep(1) #on attends 1s
         
-    GPIO.remove_event_detect(BUTTON_PIN) #On nettoie la queue d'évènements
+    GPIO.remove_event_detect(BUTTON_PIN) #On nettoie la queue d'evenements
         
     
-def WaitForEvent(): #Est chargé de retourner TRUE ou FALSE
+def WaitForEvent(): #Est charge de retourner TRUE ou FALSE
     global pygame
-    NotEvent = True #initialisation de la variable NotEvent à TRUE. Il n'y a pas d'événement.
-    while NotEvent: #tant qu'il n'y a pas d'évènement.... Tant que NotEvent est au statut défini au-dessus
-            input_state = GPIO.input(BUTTON_PIN) #...alors on va lire le PIN. Correspond à TRUE. La variable input_state correspond à le lecture de l'entrée BUTTON_PIN (25). Voir https://deusyss.developpez.com/tutoriels/RaspberryPi/PythonEtLeGpio/#LIII-A
-            if input_state == False: #Si l'état change (appui sur le bouton)...
+    NotEvent = True #initialisation de la variable NotEvent a TRUE. Il n'y a pas d'evenement.
+    while NotEvent: #tant qu'il n'y a pas d'evenement.... Tant que NotEvent est au statut defini au-dessus
+            input_state = GPIO.input(BUTTON_PIN) #...alors on va lire le PIN. Correspond a TRUE. La variable input_state correspond a le lecture de l'entree BUTTON_PIN (25). Voir https://deusyss.developpez.com/tutoriels/RaspberryPi/PythonEtLeGpio/#LIII-A
+            if input_state == False: #Si l'etat change (appui sur le bouton)...
                     NotEvent = False #Alors on indique cette variable change.           
-                    return #On retourne l'état
-            for event in pygame.event.get(): #pygame.event.get() va lire les évènements en attente dans la queue ainsi que les y retirer.           
-                    if event.type == pygame.KEYDOWN: #Si dans la queue il y a un appui sur la flèche du bas sur le clavier alors on attends 0.2s (fin de la fonction)
+                    return #On retourne l'etat
+            for event in pygame.event.get(): #pygame.event.get() va lire les evenements en attente dans la queue ainsi que les y retirer.           
+                    if event.type == pygame.KEYDOWN: #Si dans la queue il y a un appui sur la fleche du bas sur le clavier alors on attends 0.2s (fin de la fonction)
                         if event.key == pygame.K_ESCAPE: #Mais si il y a un appui sur la touche echap https://www.pygame.org/docs/ref/key.html#comment_pygame_key_name
                             pygame.quit() #Alors on quitte le programme
-                        if event.key == pygame.K_DOWN: #Toutefois s'il y a un appuisur la flèche du bas
-                            NotEvent = False #Alors on change l'état et donc on attend 0.2s
-                            return #On retourne l'état
+                        if event.key == pygame.K_DOWN: #Toutefois s'il y a un appuisur la fleche du bas
+                            NotEvent = False #Alors on change l'etat et donc on attend 0.2s
+                            return #On retourne l'etat
             time.sleep(0.2)
 
-def main(threadName, *args): # *args correspond à un tuple qui peut donc contenir plusieurs arguments quels qu'ils soient, var, string, float, etc.
-    InitFolder() #Lance la fonction InitFolder c'est ça ? C'est défini tout en haut
+def main(threadName, *args): # *args correspond a un tuple qui peut donc contenir plusieurs arguments quels qu'ils soient, var, string, float, etc.
+    InitFolder() #Lance la fonction InitFolder c'est ça ? C'est defini tout en haut
     while True: #Tant que WaitForEvent renvoie TRUE
             show_image('images/appuyez4.jpg') #Alors on montre l'image "appuyez4.jpg"...
-            WaitForEvent() #Puis on lance (arrière plan) la fonction qui bloque la fonction tant qu'il n'y a pas d'appui
+            WaitForEvent() #Puis on lance (arriere plan) la fonction qui bloque la fonction tant qu'il n'y a pas d'appui
             time.sleep(0.2) #Puis on attends 0.2s
             TakePictures() #Puis on lance la fonction TakePictures
     GPIO.cleanup()
 
 
 # launch the main thread
-Thread(target=main, args=('Main', 1)).start() # Cela représente la fonction principale du programme. C'est une activité de fil d'exécution qui va lancer la fonction main.
+Thread(target=main, args=('Main', 1)).start() # Cela represente la fonction principale du programme. C'est une activite de fil d'execution qui va lancer la fonction main.

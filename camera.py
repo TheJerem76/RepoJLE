@@ -27,7 +27,7 @@ TotalImageCount = 0  # Counter for Display and to monitor paper usage
 PhotosPerCart = 30  # Selphy takes 16 sheets per tray
 imagecounter = 0
 imagefolder = 'Photos'
-usbfolder = '/media/pi/YELLOW 15GO/Photobooth'
+#usbfolder = '/media/pi/YELLOW 15GO/Photobooth'
 templatePath = os.path.join('Photos', 'Template', "1anSam.jpg") #Path of template image - Va construire le chemin en joignant les parametres entre quote pour que la variable templatePath soit le document qui sera trouve en suivant le chemin
 
 ImageShowed = False
@@ -343,7 +343,7 @@ def CapturePicture(): #Cette fonction est chargee de prendre une cliche et de re
 def TakePictures(): #La fonction va passer plusieurs etapes : Afficher des images informatives (faites votre plus beau sourire) + lancer la fonction CapturePicture, ouvrir la photo prise par cette fonction et la coller sur une autre image (le template thematique) et enfin enregistrer l'image finale et proposer une impression de celle-ci
         global imagecounter
         global imagefolder
-        global usbfolder
+        #global usbfolder
         global Numeral
         global Message
         global screen
@@ -392,7 +392,7 @@ def TakePictures(): #La fonction va passer plusieurs etapes : Afficher des image
         Final_Image_Name = os.path.join(imagefolder, "Final_" + str(TotalImageCount)+"_"+str(ts) + ".jpg")
         # Save it to the usb drive
         bgimage.save(Final_Image_Name)
-        Final_Image_Name = os.path.join(usbfolder, "Final_" + str(TotalImageCount)+"_"+str(ts) + ".jpg")
+        #Final_Image_Name = os.path.join(usbfolder, "Final_" + str(TotalImageCount)+"_"+str(ts) + ".jpg")
         # Save it to the usb drive
         bgimage.save(Final_Image_Name)
         # Save a temp file, its faster to print from the pi than usb

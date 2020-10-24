@@ -72,7 +72,7 @@ screen = pygame.display.set_mode((infoObject.current_w,infoObject.current_h), py
 background = pygame.Surface(screen.get_size())  # Create the background object ; pygame.Surface va creer un nouvel objet image avec la taille pour arguments. Screen est une variable-
 background = background.convert()  # Convert it to a background - Pour que le format de pixel soit identique entre le fond et le background
 
-screenPicture = pygame.display.set_mode((infoObject.current_w,infoObject.current_h), pygame.FULLSCREEN)  # Full screen - Idem ç la variable screen
+screenPicture = pygame.display.set_mode((infoObject.current_w,infoObject.current_h), pygame.FULLSCREEN)  # Full screen - Idem c la variable screen
 backgroundPicture = pygame.Surface(screenPicture.get_size())  # Create the background object
 backgroundPicture = background.convert()  # Convert it to a background - Pour que le format de pixel soit identique entre le fond et le background
 
@@ -161,7 +161,7 @@ def InitFolder(): #Cette fonction semble servir a definir le dossier "images" af
     if not os.path.isdir(imagefolder2): #Si la fonction ne se verifie pas...
         os.makedirs(imagefolder2) #Alors on cree le chemin contenu dans la variable imagefolder2
         
-def DisplayText(fontSize, textToDisplay): # Sert a initialiser la variable Message, Numeral ou CountDownPhoto dans la fonction UpdateDisplay. Comme ça, a l'appel de UpdateDisplay qui vient toujours apres l'initialisation de l'une des trois variable, ce qui soit s'afficher s'affichera selon le type de message choisi a travers la variable utilise.
+def DisplayText(fontSize, textToDisplay): # Sert a initialiser la variable Message, Numeral ou CountDownPhoto dans la fonction UpdateDisplay. Comme ca, a l'appel de UpdateDisplay qui vient toujours apres l'initialisation de l'une des trois variable, ce qui soit s'afficher s'affichera selon le type de message choisi a travers la variable utilise.
 
     global Numeral
     global Message
@@ -303,7 +303,7 @@ def CapturePicture(): #Cette fonction est chargee de prendre une cliche et de re
     background.fill(pygame.Color("black"))
     screen.blit(background, (0, 0))
     pygame.display.flip() #MaJ pour voir ce qui a ete blitte (colle) sur l'ecran.
-    camera.start_preview() # Lancement de l'aperçu
+    camera.start_preview() # Lancement de l'apercu
     BackgroundColor = "black"
 
     countDown = 6 #On place un temps en secondes dans la variable countDown
@@ -334,7 +334,7 @@ def CapturePicture(): #Cette fonction est chargee de prendre une cliche et de re
         ts = datetime.now()
         filename = os.path.join(imagefolder, 'images', str(imagecounter)+"_"+str(ts.strftime("%d-%m-%Y %H:%M:%S")) + '.jpg')
         camera.capture(filename, resize=(IMAGE_WIDTH, IMAGE_HEIGHT)) # Le resize est non mandatory pour cette fonction
-        camera.stop_preview() # Fin de l'aperçu
+        camera.stop_preview() # Fin de l'apercu
         ShowPicture(filename, 2)
         ImageShowed = False
         return filename
@@ -520,7 +520,7 @@ def WaitForEvent(): #Est charge de retourner TRUE ou FALSE
             time.sleep(0.2)
 
 def main(threadName, *args): # *args correspond a un tuple qui peut donc contenir plusieurs arguments quels qu'ils soient, var, string, float, etc.
-    InitFolder() #Lance la fonction InitFolder c'est ça ? C'est defini tout en haut
+    InitFolder() #Lance la fonction InitFolder c'est ca ? C'est defini tout en haut
     while True: #Tant que WaitForEvent renvoie TRUE
             show_image('images/appuyez4.jpg') #Alors on montre l'image "appuyez4.jpg"...
             WaitForEvent() #Puis on lance (arriere plan) la fonction qui bloque la fonction tant qu'il n'y a pas d'appui

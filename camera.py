@@ -66,7 +66,7 @@ screen = pygame.display.set_mode((infoObject.current_w,infoObject.current_h), py
 
 #infoObject est egal a display.info qui permet l'affichage et qui dispose de plusieurs attributs dont current_w et current_y. Par defaut, quelles sont les valeurs prises par ces attributs ?
 
-#pygame.FULLSCREEN correspond a un attribut de fenêtre permettant de retirer les bordures.
+#pygame.FULLSCREEN correspond a un attribut de fenetre permettant de retirer les bordures.
 #
 
 background = pygame.Surface(screen.get_size())  # Create the background object ; pygame.Surface va creer un nouvel objet image avec la taille pour arguments. Screen est une variable-
@@ -272,7 +272,7 @@ def ShowPicture(file, delay): #Va montrer le cliche pris dans CapturePicture (pa
 def show_image(image_path): #Fonction chargee d'afficher une image. Elle attend en entree la variable image_path (path d'un fichier photo) afin de savoir quoi afficher
     screen.fill(pygame.Color("white")) # clear the screen   
     img = pygame.image.load(image_path) # load the image
-    img = img.convert() # On converti le format des pixel du fond au même format que celui de l'ecran http://www.frederic-junier.org/ISN/Cours/tutoriel-pygame.html
+    img = img.convert() # On converti le format des pixel du fond au meme format que celui de l'ecran http://www.frederic-junier.org/ISN/Cours/tutoriel-pygame.html
     set_demensions(img.get_width(), img.get_height()) # set pixel dimensions based on image 
     x = (infoObject.current_w / 2) - (img.get_width() / 2)
     y = (infoObject.current_h / 2) - (img.get_height() / 2)
@@ -316,7 +316,7 @@ def CapturePicture(): #Cette fonction est chargee de prendre une cliche et de re
             time.sleep(1) 
 
 
-    for x in range(4, -1, -1): # Pour x compris dans un ecart qui commence a 4(optionnal), s'arrête a -1 (required), avec un ecart de -1 (optionnal) https://www.w3schools.com/python/ref_func_range.asp
+    for x in range(4, -1, -1): # Pour x compris dans un ecart qui commence a 4(optionnal), s'arrete a -1 (required), avec un ecart de -1 (optionnal) https://www.w3schools.com/python/ref_func_range.asp
         if x == 0:                        
             Numeral = ""
             Message = "PRENEZ LA POSE !!"

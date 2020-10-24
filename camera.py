@@ -55,19 +55,19 @@ myfont = pygame.font.SysFont("monospace", 15) # Je definis mon element texte
 pygame.mouse.set_visible(False) #hide the mouse cursor
 infoObject = pygame.display.Info() #pygame.display.Info sert a creer un objet d'information video destine a l'affichage. Il prend pour proprietes ce qu'il trouvera dans current-h et current_y qui sont des attributs de .display.info.  Voir https://devdocs.io/pygame/ref/display#pygame.display.Info
 screen = pygame.display.set_mode((infoObject.current_w,infoObject.current_h), pygame.FULLSCREEN) 
-''' Full screen ; display.set_mode initialise une fenetre ou ecran pour un affichage. Par exemple ici :
+# Full screen ; display.set_mode initialise une fenetre ou ecran pour un affichage. Par exemple ici :
 
-Screen est la variable
-qui est egal a
-ecran cree par la fonction pygame.display.set_mode
-Et avec comme propriete les tailles suivantes :
-En x : infoObject.current_w
-En y : infoObject.current_y
+#Screen est la variable
+#qui est egal a
+#ecran cree par la fonction pygame.display.set_mode
+#Et avec comme propriete les tailles suivantes :
+#En x : infoObject.current_w
+#En y : infoObject.current_y
 
-infoObject est egal a display.info qui permet l'affichage et qui dispose de plusieurs attributs dont current_w et current_y. Par defaut, quelles sont les valeurs prises par ces attributs ?
+#infoObject est egal a display.info qui permet l'affichage et qui dispose de plusieurs attributs dont current_w et current_y. Par defaut, quelles sont les valeurs prises par ces attributs ?
 
-pygame.FULLSCREEN correspond a un attribut de fenêtre permettant de retirer les bordures.
-'''
+#pygame.FULLSCREEN correspond a un attribut de fenêtre permettant de retirer les bordures.
+#
 
 background = pygame.Surface(screen.get_size())  # Create the background object ; pygame.Surface va creer un nouvel objet image avec la taille pour arguments. Screen est une variable-
 background = background.convert()  # Convert it to a background - Pour que le format de pixel soit identique entre le fond et le background

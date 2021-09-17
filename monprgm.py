@@ -128,7 +128,7 @@ def WaitForEvent(): #Est charge de retourner TRUE ou FALSE
 def main(threadName, *args): # *args correspond a un tuple qui peut donc contenir plusieurs arguments quels qu'ils soient, var, string, float, etc.
     while True: #Tant que WaitForEvent renvoie TRUE
             pygame.init()
-            ecran = pygame.display.set_mode((300,200))
+            ecran = pygame.display.set_mode((500,200))
             image = pygame.image.load("images/appuyezbouton.jpg").convert_alpha()
             continuer = True
             while continuer:

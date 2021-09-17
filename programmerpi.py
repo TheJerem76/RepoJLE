@@ -525,7 +525,19 @@ def WaitForEvent(): #Est charge de retourner TRUE ou FALSE
 def main(threadName, *args): # *args correspond a un tuple qui peut donc contenir plusieurs arguments quels qu'ils soient, var, string, float, etc.
     InitFolder() #Lance la fonction InitFolder c'est ca ? C'est defini tout en haut
     while True: #Tant que WaitForEvent renvoie TRUE
-            show_image('images/appuyezbouton.jpg') #Alors on montre l'image "appuyez4.jpg"...
+
+        pygame.init() #Initialisation de pygame, cela va charger tous les modules
+        ecran = pygame.display.set_mode((0,0), pygame.FULLSCREEN) #On créé une fenêtre avec le module display, on met 0,0 en argument avec le flag fullscreen pour que le plein écran fonctionne. (https://zestedesavoir.com/tutoriels/846/pygame-pour-les-zesteurs/1381_a-la-decouverte-de-pygame/creer-une-simple-fenetre-personnalisable/)
+        image = pygame.image.load("images/appuyezbouton.jpg").convert_alpha()
+        image = pygame.transform.scale(image, (pygame.display.get_surface().get_size()))
+        continuer = True
+        while continuer:
+            ecran.blit(image, (0,0))
+            for event in pygame.event.get():
+                if event.type == pygame.KEYDOWN:
+                    continuer = False
+            pygame.display.flip()
+        pygame.quit()
             WaitForEvent() #Puis on lance (arriere plan) la fonction qui bloque la fonction tant qu'il n'y a pas d'appui
             time.sleep(0.2) #Puis on attends 0.2s
             TakePictures() #Puis on lance la fonction TakePictures

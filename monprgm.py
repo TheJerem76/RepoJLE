@@ -129,7 +129,7 @@ def main(threadName, *args): # *args correspond a un tuple qui peut donc conteni
     while True: #Tant que WaitForEvent renvoie TRUE
 
             pygame.init() #Initialisation de pygame, cela va charger tous les modules
-            ecran = pygame.display.set_mode((0,0)) #On créé une fenêtre avec le module display
+            ecran = pygame.display.set_mode((0,0), pygame.FULLSCREEN) #On créé une fenêtre avec le module display
             image = pygame.image.load("images/appuyezbouton.jpg").convert_alpha()
             continuer = True
             while continuer:

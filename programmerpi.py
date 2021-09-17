@@ -534,7 +534,7 @@ def main(threadName, *args): # *args correspond a un tuple qui peut donc conteni
         while continuer:
             ecran.blit(image, (0,0))
             for event in pygame.event.get():
-                if event.type == pygame.KEYDOWN:
+                if event.type == pygame.KEYUP:
                     continuer = False
             pygame.display.flip()
         pygame.quit()

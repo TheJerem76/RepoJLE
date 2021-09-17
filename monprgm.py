@@ -131,7 +131,7 @@ def main(threadName, *args): # *args correspond a un tuple qui peut donc conteni
             pygame.init() #Initialisation de pygame, cela va charger tous les modules
             ecran = pygame.display.set_mode((0,0), pygame.FULLSCREEN) #On créé une fenêtre avec le module display, on met 0,0 en argument avec le flag fullscreen pour que le plein écran fonctionne. (https://zestedesavoir.com/tutoriels/846/pygame-pour-les-zesteurs/1381_a-la-decouverte-de-pygame/creer-une-simple-fenetre-personnalisable/)
             image = pygame.image.load("images/appuyezbouton.jpg").convert_alpha()
-            image = pygame.transform.scale(image, (pygame.FULLSCREEN))
+            image = pygame.transform.scale(image, (pygame.display.get_surface().get_size()))
             continuer = True
             while continuer:
                 ecran.blit(image, (0,50))

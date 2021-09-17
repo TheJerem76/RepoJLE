@@ -132,7 +132,7 @@ def main(threadName, *args): # *args correspond a un tuple qui peut donc conteni
             image = pygame.image.load("images/appuyezbouton.jpg").convert_alpha()
             continuer = True
             while continuer:
-                ecran.blot(image, (0,50))
+                ecran.blit(image, (0,50))
                 for event in pygame.event.get():
                     if event.type == pygame.KEYDOWN:
                         continuer = False

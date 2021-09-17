@@ -135,6 +135,9 @@ def main(threadName, *args): # *args correspond a un tuple qui peut donc conteni
             continuer = True
             while continuer:
                 ecran.blit(image, (0,0))
+                for event in pygame.event.get():
+                    if event.type == pygame.KEYUP:
+                        continuer = False
                 pygame.display.flip()
             pygame.quit()
             WaitForEvent() #Puis on lance (arriere plan) la fonction qui bloque la fonction tant qu'il n'y a pas d'appui

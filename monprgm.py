@@ -136,7 +136,7 @@ def main(threadName, *args): # *args correspond a un tuple qui peut donc conteni
                 for event in pygame.event.get():
                     if event.type == pygame.KEYDOWN:
                         continuer = False
-                pygame.display.flop()
+                pygame.display.flip()
             pygame.quit()
             WaitForEvent() #Puis on lance (arriere plan) la fonction qui bloque la fonction tant qu'il n'y a pas d'appui
             time.sleep(0.2) #Puis on attends 0.2s

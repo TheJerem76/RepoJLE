@@ -538,9 +538,9 @@ def main(threadName, *args): # *args correspond a un tuple qui peut donc conteni
                     continuer = False
             pygame.display.flip()
         pygame.quit()
-            WaitForEvent() #Puis on lance (arriere plan) la fonction qui bloque la fonction tant qu'il n'y a pas d'appui
-            time.sleep(0.2) #Puis on attends 0.2s
-            TakePictures() #Puis on lance la fonction TakePictures
+        WaitForEvent() #Puis on lance (arriere plan) la fonction qui bloque la fonction tant qu'il n'y a pas d'appui
+        time.sleep(0.2) #Puis on attends 0.2s
+        TakePictures() #Puis on lance la fonction TakePictures
     GPIO.cleanup()
 
 

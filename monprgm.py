@@ -134,7 +134,7 @@ def main(threadName, *args): # *args correspond a un tuple qui peut donc conteni
             image = pygame.transform.scale(image, (pygame.display.get_surface().get_size()))
             continuer = True
             while continuer:
-                ecran.blit(image, (0,50))
+                ecran.blit(image, (0,150))
                 for event in pygame.event.get():
                     if event.type == pygame.KEYDOWN:
                         continuer = False

@@ -19,7 +19,7 @@ from PIL import Image, ImageDraw
 from datetime import datetime
 
 
-# Definition des variables
+#-----! Définition des variables !-----#
 Numeral = ""  # Numeral is the number display
 Message = ""  # Message is a fullscreen message
 BackgroundColor = ""
@@ -47,27 +47,27 @@ IMAGE_HEIGHT = 600
 # Load the background template
 bgimage = PIL.Image.open(templatePath) #La variable bgimage ouvre l'image ayant pour nom templatePath
 
-#Setup GPIO
+#-----! On définit les GPIO !-----#
 GPIO.setmode(GPIO.BCM) # Cela signifie que le comptage des PIN se fera selon l'approche de numerotation electronique de la carte RPI. Voir https://deusyss.developpez.com/tutoriels/RaspberryPi/PythonEtLeGpio/#LIII-A
 GPIO.setup(BUTTON_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP) #BUTTON_PIN est une variable = 25 definie en ligne.35. Ici on set le pin 25 en entree
 
-# initialise pygame
+#-----! Initialisation de PyGame !-----#
 #Pour info, pygame est un truc qui donne la possibilite d'afficher des elements a l'ecran
 pygame.init()  # Initialise pygame - https://devdocs.io/pygame/
 myfont = pygame.font.SysFont("monospace", 15) # Je definis mon element texte
 pygame.mouse.set_visible(False) #hide the mouse cursor
-infoObject = pygame.display.Info() #pygame.display.Info sert a creer un objet d'information video destine a l'affichage. Il prend pour proprietes ce qu'il trouvera dans current-h et current_y qui sont des attributs de .display.info.  Voir https://devdocs.io/pygame/ref/display#pygame.display.Info
-screen = pygame.display.set_mode((infoObject.current_w,infoObject.current_h), pygame.FULLSCREEN) 
+videoObject = pygame.display.Info() #pygame.display.Info sert a creer un objet d'information video destine a l'affichage. Il prend pour proprietes ce qu'il trouvera dans current_h et current_y qui sont des attributs de .display.info.  Voir https://devdocs.io/pygame/ref/display#pygame.display.Info
+screen = pygame.display.set_mode((videoObject.current_w,videoObject.current_h), pygame.FULLSCREEN) 
 # Full screen ; display.set_mode initialise une fenetre ou ecran pour un affichage. Par exemple ici :
 
 #Screen est la variable
 #qui est egal a
 #ecran cree par la fonction pygame.display.set_mode
 #Et avec comme propriete les tailles suivantes :
-#En x : infoObject.current_w
-#En y : infoObject.current_y
+#En x : videoObject.current_w
+#En y : videoObject.current_y
 
-#infoObject est egal a display.info qui permet l'affichage et qui dispose de plusieurs attributs dont current_w et current_y. Par defaut, quelles sont les valeurs prises par ces attributs ?
+#videoObject est egal a display.info qui permet l'affichage et qui dispose de plusieurs attributs dont current_w et current_y. Par defaut, quelles sont les valeurs prises par ces attributs ?
 
 #pygame.FULLSCREEN correspond a un attribut de fenetre permettant de retirer les bordures.
 #
@@ -75,16 +75,16 @@ screen = pygame.display.set_mode((infoObject.current_w,infoObject.current_h), py
 background = pygame.Surface(screen.get_size())  # Create the background object ; pygame.Surface va creer un nouvel objet image avec la taille pour arguments. Screen est une variable-
 background = background.convert()  # Convert it to a background - Pour que le format de pixel soit identique entre le fond et le background
 
-screenPicture = pygame.display.set_mode((infoObject.current_w,infoObject.current_h), pygame.FULLSCREEN)  # Full screen - Idem c la variable screen
+screenPicture = pygame.display.set_mode((videoObject.current_w,videoObject.current_h), pygame.FULLSCREEN)  # Full screen - Idem c la variable screen
 backgroundPicture = pygame.Surface(screenPicture.get_size())  # Create the background object
 backgroundPicture = background.convert()  # Convert it to a background - Pour que le format de pixel soit identique entre le fond et le background
 
-transform_x = infoObject.current_w # how wide to scale the jpg when replaying
-transfrom_y = infoObject.current_h # how high to scale the jpg when replaying
+transform_x = videoObject.current_w # how wide to scale the jpg when replaying
+transfrom_y = videoObject.current_h # how high to scale the jpg when replaying
 
 camera = picamera.PiCamera() #https://picamera.readthedocs.io/en/release-1.12/api_camera.html#picamera
 # Initialise the camera object
-#camera.resolution = (infoObject.current_w, infoObject.current_h) #la resolution de la camera prendra heigh and width de l'ecran
+#camera.resolution = (videoObject.current_w, videoObject.current_h) #la resolution de la camera prendra heigh and width de l'ecran
 camera.resolution = (1200,720)
 camera.rotation              = 0
 camera.hflip                 = True
@@ -109,6 +109,7 @@ camera.preview_fullscreen = True
 #-----! Grosse fonction qui va faire plusieurs choses !-----#
 def PrisePhoto():
     global pygame
+    
     show_image('images/faitesbeausourire.jpg')
     time.sleep(3) #Temps d'affichage de l'image
     filename1 = CapturePicture() # La variable filename1 sera egale au resultat obtenu suite au lancement de la fonction CapturePicture, c'est a dire au nom de la photo.
@@ -118,25 +119,26 @@ def PrisePhoto():
 #-----! EVENEMENT va renvoyer si un appui a été effectué ou non sur le bouton pour lancer le programme !-----#
 def Evenement(): #Est en charge de retourner TRUE ou FALSE
     global pygame
-    NotEvent = True #initialisation de la variable NotEvent a TRUE. Il n'y a pas d'evenement.
-    while NotEvent: #tant qu'il n'y a pas d'evenement.... Tant que NotEvent est au statut defini au-dessus
+    
+    RienNeSePasse = True #initialisation de la variable RienNeSePasse a TRUE. Il n'y a pas d'evenement, rien ne se passe.
+    while RienNeSePasse: #tant qu'il n'y a pas d'evenement.... Tant que RienNeSePasse est au statut defini au-dessus
             input_state = GPIO.input(BUTTON_PIN) #...alors on va lire (GPIO.input()) le PIN (variable BUTTON_PIN initialisé à 25 au début). Correspond a TRUE. La variable input_state correspond a le lecture de l'entree BUTTON_PIN (25). Voir https://deusyss.developpez.com/tutoriels/RaspberryPi/PythonEtLeGpio/#LIII-A
             if input_state == False: #Si l'etat change (appui sur le bouton)...
-                    NotEvent = False #Alors on indique cette variable change.           
+                    RienNeSePasse = False #Alors on indique cette variable change.           
                     return #On retourne l'etat
             for event in pygame.event.get(): #pygame.event.get() va lire les evenements en attente dans la queue ainsi que les y retirer.           
                     if event.type == pygame.KEYDOWN: #Si dans la queue il y a un appui sur la fleche du bas sur le clavier alors on attends 0.2s (fin de la fonction)
                         if event.key == pygame.K_ESCAPE: #Mais si il y a un appui sur la touche echap https://www.pygame.org/docs/ref/key.html#comment_pygame_key_name
                             pygame.quit() #Alors on quitte le programme
                         if event.key == pygame.K_DOWN: #Toutefois s'il y a un appuisur la fleche du bas
-                            NotEvent = False #Alors on change l'etat et donc on attend 0.2s
+                            RienNeSePasse = False #Alors on change l'etat et donc on attend 0.2s
                             return #On retourne l'etat
             time.sleep(0.2)
 
             
 #-----! Fonction principale du programme, c'est la porte d'entrée !-----#
 def main(threadName, *args): # *args correspond a un tuple qui peut donc contenir plusieurs arguments quels qu'ils soient, var, string, float, etc.
-    while True: #Tant que WaitForEvent renvoie TRUE
+    while True: #Tant que Evenement renvoie TRUE
 
             pygame.init() #Initialisation de pygame, cela va charger tous les modules
             ecran = pygame.display.set_mode((0,0), pygame.FULLSCREEN) #On créé une fenêtre avec le module display, on met 0,0 en argument avec le flag fullscreen pour que le plein écran fonctionne. (https://zestedesavoir.com/tutoriels/846/pygame-pour-les-zesteurs/1381_a-la-decouverte-de-pygame/creer-une-simple-fenetre-personnalisable/)

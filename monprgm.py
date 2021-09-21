@@ -522,7 +522,6 @@ def Evenement(): #Est en charge de retourner TRUE ou FALSE
 #-----! Fonction principale du programme, c'est la porte d'entrée !-----#
 def main(threadName, *args): # *args correspond a un tuple qui peut donc contenir plusieurs arguments quels qu'ils soient, var, string, float, etc.
     while True: #Tant que Evenement renvoie TRUE
-
             pygame.init() #Initialisation de pygame, cela va charger tous les modules
             ecran = pygame.display.set_mode((0,0), pygame.FULLSCREEN) #On créé une fenêtre avec le module display, on met 0,0 en argument avec le flag fullscreen pour que le plein écran fonctionne. (https://zestedesavoir.com/tutoriels/846/pygame-pour-les-zesteurs/1381_a-la-decouverte-de-pygame/creer-une-simple-fenetre-personnalisable/)
             image = pygame.image.load("images/appuyezbouton.jpg").convert_alpha()
@@ -534,7 +533,7 @@ def main(threadName, *args): # *args correspond a un tuple qui peut donc conteni
                     if event.type == pygame.KEYUP:
                         continuer = False
                 pygame.display.flip()
-            pygame.quit()
+            #pygame.quit()
             Evenement() #Puis on lance (arriere plan) la fonction qui bloque la fonction tant qu'il n'y a pas d'appui
             time.sleep(0.2) #Puis on attends 0.2s
             PrisePhoto() #Puis on lance la fonction TakePictures

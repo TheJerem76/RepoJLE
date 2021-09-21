@@ -107,11 +107,17 @@ camera.preview_fullscreen = True
 #camera.crop                  = (0.0, 0.0, 1.0, 1.0)
 
 #-----! Grosse fonction qui va faire plusieurs choses !-----#
+def PrisePhoto:
+    global pygame
+    
+        input(pygame.event.get())
+            show_image('images/faitesbeausourire.jpg')
+            time.sleep(3) #Temps d'affichage de l'image
+            filename1 = CapturePicture() # La variable filename1 sera egale au resultat obtenu suite au lancement de la fonction CapturePicture, c'est a dire au nom de la photo.
+#A la suite de cette ligne, les operatons de placement de la photo sur le template + renommage  + enregistrement de la photo vont se lancer. La partie impression de la photo est egalement proposee.
 
-def PrisePhoto
 
 #-----! EVENEMENT va renvoyer si un appui a été effectué ou non sur le bouton pour lancer le programme !-----#
-
 def Evenement(): #Est en charge de retourner TRUE ou FALSE
     global pygame
     NotEvent = True #initialisation de la variable NotEvent a TRUE. Il n'y a pas d'evenement.
@@ -131,7 +137,6 @@ def Evenement(): #Est en charge de retourner TRUE ou FALSE
 
             
 #-----! Fonction principale du programme, c'est la porte d'entrée !-----#
-
 def main(threadName, *args): # *args correspond a un tuple qui peut donc contenir plusieurs arguments quels qu'ils soient, var, string, float, etc.
     while True: #Tant que WaitForEvent renvoie TRUE
 

@@ -110,6 +110,7 @@ camera.preview_fullscreen = True
 
 # A function to handle keyboard/mouse/device input events
 def input(events):
+    pygame.init()
     for event in events:  # Hit the ESC key to quit the slideshow.
         if (event.type == QUIT or
                 (event.type == KEYDOWN and event.key == K_ESCAPE)):
@@ -533,7 +534,7 @@ def main(threadName, *args): # *args correspond a un tuple qui peut donc conteni
                     if event.type == pygame.KEYUP:
                         continuer = False
                 pygame.display.flip()
-            #pygame.quit()
+            pygame.quit()
             Evenement() #Puis on lance (arriere plan) la fonction qui bloque la fonction tant qu'il n'y a pas d'appui
             time.sleep(0.2) #Puis on attends 0.2s
             PrisePhoto() #Puis on lance la fonction TakePictures

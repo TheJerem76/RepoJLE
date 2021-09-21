@@ -504,6 +504,7 @@ def WaitForPrintingEvent(): #Charge de retourner TRUE ou FALSE
 def Evenement(): #Est en charge de retourner TRUE ou FALSE
     global pygame
     
+    pygame.init()
     RienNeSePasse = True #initialisation de la variable RienNeSePasse a TRUE. Il n'y a pas d'evenement, rien ne se passe.
     while RienNeSePasse: #tant qu'il n'y a pas d'evenement.... Tant que RienNeSePasse est au statut defini au-dessus
             input_state = GPIO.input(BUTTON_PIN) #...alors on va lire (GPIO.input()) le PIN (variable BUTTON_PIN initialisé à 25 au début). Correspond a TRUE. La variable input_state correspond a le lecture de l'entree BUTTON_PIN (25). Voir https://deusyss.developpez.com/tutoriels/RaspberryPi/PythonEtLeGpio/#LIII-A

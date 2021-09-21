@@ -107,7 +107,7 @@ camera.preview_fullscreen = True
 #camera.crop                  = (0.0, 0.0, 1.0, 1.0)
 
 #-----! Grosse fonction qui va faire plusieurs choses !-----#
-def PrisePhoto:
+def PrisePhoto():
     global pygame
     
         input(pygame.event.get())

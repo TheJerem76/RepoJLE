@@ -124,27 +124,27 @@ def set_demensions(img_w, img_h): #Fonction utile que dans la fonction show_imag
     global transform_y, transform_x, offset_y, offset_x
 
     # based on output screen resolution, calculate how to display
-    ratio_h = (infoObject.current_w * img_h) / img_w 
+    ratio_h = (videoObject.current_w * img_h) / img_w 
 
-    if (ratio_h < infoObject.current_h):
+    if (ratio_h < videoObject.current_h):
         #Use horizontal black bars
         #print "horizontal black bars"
         transform_y = ratio_h
-        transform_x = infoObject.current_w
-        offset_y = (infoObject.current_h - ratio_h) / 2
+        transform_x = videoObject.current_w
+        offset_y = (videoObject.current_h - ratio_h) / 2
         offset_x = 0
-    elif (ratio_h > infoObject.current_h):
+    elif (ratio_h > videoObject.current_h):
         #Use vertical black bars
         #print "vertical black bars"
-        transform_x = (infoObject.current_h * img_w) / img_h
-        transform_y = infoObject.current_h
-        offset_x = (infoObject.current_w - transform_x) / 2
+        transform_x = (videoObject.current_h * img_w) / img_h
+        transform_y = videoObject.current_h
+        offset_x = (videoObject.current_w - transform_x) / 2
         offset_y = 0
     else:
         #No need for black bars as photo ratio equals screen ratio
         #print "no black bars"
-        transform_x = infoObject.current_w
-        transform_y = infoObject.current_h
+        transform_x = videoObject.current_w
+        transform_y = videoObject.current_h
         offset_y = offset_x = 0
 
 def InitFolder(): #Cette fonction semble servir a definir le dossier "images" afin de stoker les photos
@@ -276,8 +276,8 @@ def show_image(image_path): #Fonction chargee d'afficher une image. Elle attend 
     img = pygame.image.load(image_path) # load the image
     img = img.convert() # On converti le format des pixel du fond au meme format que celui de l'ecran http://www.frederic-junier.org/ISN/Cours/tutoriel-pygame.html
     set_demensions(img.get_width(), img.get_height()) # set pixel dimensions based on image 
-    x = (infoObject.current_w / 2) - (img.get_width() / 2)
-    y = (infoObject.current_h / 2) - (img.get_height() / 2)
+    x = (videoObject.current_w / 2) - (img.get_width() / 2)
+    y = (videoObject.current_h / 2) - (img.get_height() / 2)
     screen.blit(img,(x,y)) #Va dessiner au sein d'une surface le contenu de img en fonction des positions definies en x et y.
     pygame.display.flip() #MaJ pour voir ce qui a ete blitte (colle) sur l'ecran.
 

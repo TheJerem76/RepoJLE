@@ -515,16 +515,16 @@ def WaitForEvent(): #Est charge de retourner TRUE ou FALSE
                     if event.type == pygame.KEYDOWN: #Si dans la queue il y a un appui sur la fleche du bas sur le clavier alors on attends 0.2s (fin de la fonction)
                         if event.key == pygame.K_ESCAPE: #Mais si il y a un appui sur la touche echap https://www.pygame.org/docs/ref/key.html#comment_pygame_key_name
                             pygame.quit() #Alors on quitte le programme
-                        if event.key == pygame.K_DOWN: #Toutefois s'il y a un appuisur la fleche du bas
+                        if event.key == pygame.K_DOWN: #Toutefois s'il y a un appui sur la fleche du bas
                             NotEvent = False #Alors on change l'etat et donc on attend 0.2s
                             return #On retourne l'etat
             time.sleep(0.2)
 
 def main(threadName, *args): # *args correspond a un tuple qui peut donc contenir plusieurs arguments quels qu'ils soient, var, string, float, etc.
-    InitFolder() #Lance la fonction InitFolder c'est ca ? C'est defini tout en haut
-    while True: #Tant que WaitForEvent renvoie TRUE
-            show_image('images/appuyez4.jpg') #Alors on montre l'image "appuyez4.jpg"...
-            WaitForEvent() #Puis on lance (arriere plan) la fonction qui bloque la fonction tant qu'il n'y a pas d'appui
+    InitFolder() #Lance la fonction InitFolder
+    while True: #Boucle infinie du programme principal
+            show_image('images/appuyez4.jpg') #On montre l'image "appuyez4.jpg"...
+            WaitForEvent() #Puis on lance (arriere plan) la fonction qui freeze le programme tant qu'il n'y a pas d'appui
             time.sleep(0.2) #Puis on attends 0.2s
             TakePictures() #Puis on lance la fonction TakePictures
     GPIO.cleanup()

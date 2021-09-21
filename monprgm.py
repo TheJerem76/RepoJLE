@@ -106,6 +106,14 @@ camera.preview_fullscreen = True
 #camera.color_effects         = None
 #camera.crop                  = (0.0, 0.0, 1.0, 1.0)
 
+
+# A function to handle keyboard/mouse/device input events
+def input(events):
+    for event in events:  # Hit the ESC key to quit the slideshow.
+        if (event.type == QUIT or
+                (event.type == KEYDOWN and event.key == K_ESCAPE)):
+            pygame.quit()
+
 #-----! Grosse fonction qui va faire plusieurs choses !-----#
 def PrisePhoto():
     global pygame

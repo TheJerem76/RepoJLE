@@ -106,13 +106,17 @@ camera.preview_fullscreen = True
 #camera.color_effects         = None
 #camera.crop                  = (0.0, 0.0, 1.0, 1.0)
 
+#-----! Grosse fonction qui va faire plusieurs choses !-----#
 
-    
-def WaitForEvent(): #Est charge de retourner TRUE ou FALSE
+def PrisePhoto
+
+#-----! EVENEMENT va renvoyer si un appui a été effectué ou non sur le bouton pour lancer le programme !-----#
+
+def Evenement(): #Est en charge de retourner TRUE ou FALSE
     global pygame
     NotEvent = True #initialisation de la variable NotEvent a TRUE. Il n'y a pas d'evenement.
     while NotEvent: #tant qu'il n'y a pas d'evenement.... Tant que NotEvent est au statut defini au-dessus
-            input_state = GPIO.input(BUTTON_PIN) #...alors on va lire le PIN. Correspond a TRUE. La variable input_state correspond a le lecture de l'entree BUTTON_PIN (25). Voir https://deusyss.developpez.com/tutoriels/RaspberryPi/PythonEtLeGpio/#LIII-A
+            input_state = GPIO.input(BUTTON_PIN) #...alors on va lire (GPIO.input()) le PIN (variable BUTTON_PIN initialisé à 25 au début). Correspond a TRUE. La variable input_state correspond a le lecture de l'entree BUTTON_PIN (25). Voir https://deusyss.developpez.com/tutoriels/RaspberryPi/PythonEtLeGpio/#LIII-A
             if input_state == False: #Si l'etat change (appui sur le bouton)...
                     NotEvent = False #Alors on indique cette variable change.           
                     return #On retourne l'etat
@@ -124,6 +128,9 @@ def WaitForEvent(): #Est charge de retourner TRUE ou FALSE
                             NotEvent = False #Alors on change l'etat et donc on attend 0.2s
                             return #On retourne l'etat
             time.sleep(0.2)
+
+            
+#-----! Fonction principale du programme, c'est la porte d'entrée !-----#
 
 def main(threadName, *args): # *args correspond a un tuple qui peut donc contenir plusieurs arguments quels qu'ils soient, var, string, float, etc.
     while True: #Tant que WaitForEvent renvoie TRUE
@@ -140,9 +147,9 @@ def main(threadName, *args): # *args correspond a un tuple qui peut donc conteni
                         continuer = False
                 pygame.display.flip()
             pygame.quit()
-            WaitForEvent() #Puis on lance (arriere plan) la fonction qui bloque la fonction tant qu'il n'y a pas d'appui
+            Evenement() #Puis on lance (arriere plan) la fonction qui bloque la fonction tant qu'il n'y a pas d'appui
             time.sleep(0.2) #Puis on attends 0.2s
-            TakePictures() #Puis on lance la fonction TakePictures
+            PrisePhoto() #Puis on lance la fonction TakePictures
     GPIO.cleanup()
 
 

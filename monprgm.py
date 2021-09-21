@@ -371,35 +371,35 @@ def PrisePhoto():
         #CountDownPhoto = "3/3"
         #filename3 = CapturePicture()
 
-        CountDownPhoto = ""
-        Message = "Attendez"
-        UpdateDisplay()
+    CountDownPhoto = ""
+    Message = "Attendez"
+    UpdateDisplay()
         
 
-        image1 = PIL.Image.open(filename1) # On ouvre la photo
+    image1 = PIL.Image.open(filename1) # On ouvre la photo
         #image2 = PIL.Image.open(filename2)
         #image3 = PIL.Image.open(filename3)   
-        TotalImageCount = TotalImageCount + 1
+    TotalImageCount = TotalImageCount + 1
     
-        bgimage.paste(image1, (40, 40))  # Puis on place la photo image1 sur le template thematique (1 an Sam). Plus x est petit, plus l'image est sur la gauche ; y petit = image en haut
+    bgimage.paste(image1, (40, 40))  # Puis on place la photo image1 sur le template thematique (1 an Sam). Plus x est petit, plus l'image est sur la gauche ; y petit = image en haut
         #bgimage.paste(image1, (625, 30))
         #bgimage.paste(image2, (625, 410))
         #bgimage.paste(image3, (55, 410))
         # Create the final filename
-        ts = time.time()
-        Final_Image_Name = os.path.join(imagefolder, "Final_" + str(TotalImageCount)+"_"+str(ts) + ".jpg")
+    ts = time.time()
+    Final_Image_Name = os.path.join(imagefolder, "Final_" + str(TotalImageCount)+"_"+str(ts) + ".jpg")
         # Save it to the usb drive
-        bgimage.save(Final_Image_Name)
+    bgimage.save(Final_Image_Name)
         #Final_Image_Name = os.path.join(usbfolder, "Final_" + str(TotalImageCount)+"_"+str(ts) + ".jpg")
         # Save it to the usb drive
-        bgimage.save(Final_Image_Name)
+    bgimage.save(Final_Image_Name)
         # Save a temp file, its faster to print from the pi than usb
-        bgimage.save('/home/pi/Desktop/tempprint.jpg')
-        ShowPicture('/home/pi/Desktop/tempprint.jpg',5)
-        bgimage2 = bgimage.rotate(0)
-        bgimage2.save('/home/pi/Desktop/tempprint.jpg')
-        ImageShowed = False #Apres le "Appuyez pour imprimer", le compteur apparait sur fond blanc. Si "True", ca ne va pas
-        label = myfont.render("Some text!", 10, (255,255,0))
+    bgimage.save('/home/pi/Desktop/tempprint.jpg')
+    ShowPicture('/home/pi/Desktop/tempprint.jpg',5)
+    bgimage2 = bgimage.rotate(0)
+    bgimage2.save('/home/pi/Desktop/tempprint.jpg')
+    ImageShowed = False #Apres le "Appuyez pour imprimer", le compteur apparait sur fond blanc. Si "True", ca ne va pas
+    label = myfont.render("Some text!", 10, (255,255,0))
         
         #Boucle
         #countDown = 15 #On place un temps en secondes dans la variable countDown
@@ -413,58 +413,58 @@ def PrisePhoto():
         #Fin Boucle
         
         #Message = "Appuyez sur le bouton pour imprimer..."
-        Message = "Vous souhaitez imprimer ? Appuyez..."    
-        UpdateDisplay()
-        time.sleep(3)
-        UpdateDisplay()
-        Message = ""
+    Message = "Vous souhaitez imprimer ? Appuyez..."    
+    UpdateDisplay()
+    time.sleep(3)
+    UpdateDisplay()
+    Message = ""
         #UpdateDisplay()
-        Printing = False
-        WaitForPrintingEvent() #On lance la fonction. Soit le compte a rebours va jusqu'a la fin, soit un appui est detecte et donc on imprime.
-        Numeral = ""
-        Message = ""
-        print(Printing)
-        if Printing: #Si Printing = TRUE
-                if (TotalImageCount <= PhotosPerCart): #Si le total d'images prises est inferieur ou egal au total d'image prevues par photos
-                        if os.path.isfile('/home/pi/Desktop/tempprint.jpg'): #Si le fichier existe
+    Printing = False
+    WaitForPrintingEvent() #On lance la fonction. Soit le compte a rebours va jusqu'a la fin, soit un appui est detecte et donc on imprime.
+    Numeral = ""
+    Message = ""
+    print(Printing)
+    if Printing: #Si Printing = TRUE
+            if (TotalImageCount <= PhotosPerCart): #Si le total d'images prises est inferieur ou egal au total d'image prevues par photos
+                    if os.path.isfile('/home/pi/Desktop/tempprint.jpg'): #Si le fichier existe
                                 # Open a connection to cups
-                                conn = cups.Connection()
+                            conn = cups.Connection()
                                 # get a list of printers
-                                printers = conn.getPrinters()
+                            printers = conn.getPrinters()
                                 # select printer 0
-                                printer_name = printers.keys()[0]
+                            printer_name = printers.keys()[0]
                                 #Message = "Impression en cours..."
-                                UpdateDisplay()
-                                time.sleep(1)
+                            UpdateDisplay()
+                            time.sleep(1)
                                 # print the buffer file
-                                printqueuelength = len(conn.getJobs()) #len() va retourner le nombre d'item dans un objet
-                                if printqueuelength > 1: #S'il y a + qu'un seul element dans la file d'attente
-                                        ShowPicture('/home/pi/Desktop/tempprint.jpg',5) #Alors on montre la photo
-                                        conn.enablePrinter(printer_name)
-                                        Message = "Impression impossible" #Et on afficbhe un message   
-                                        UpdateDisplay()
-                                        time.sleep(1) #Et on attend une seconde
-                                else: #Sinon
-                                        conn.printFile(printer_name, '/home/pi/Desktop/tempprint.jpg', "PhotoBooth", {})
-                                        countDown = 55 #On place un temps en secondes dans la variable countDown le temps que l'impression se termine
-                                        while countDown > 0:      
-                                            BackgroundColor = ""
-                                            Numeral = ""
-                                            Message = "Impression en cours... " + str(countDown) #On affiche impression en cours + le compteur
-                                            UpdateDisplay()        
-                                            countDown = countDown - 1
-                                            time.sleep(1)          
-                else: #Sinon, donc si le total d'images prises est superieur au total d'image prevues par photos
-                        Message = "Nous vous enverrons vos photos"
-                        Numeral = ""
-                        UpdateDisplay()
-                        time.sleep(1)
+                            printqueuelength = len(conn.getJobs()) #len() va retourner le nombre d'item dans un objet
+                            if printqueuelength > 1: #S'il y a + qu'un seul element dans la file d'attente
+                                    ShowPicture('/home/pi/Desktop/tempprint.jpg',5) #Alors on montre la photo
+                                    conn.enablePrinter(printer_name)
+                                    Message = "Impression impossible" #Et on afficbhe un message   
+                                    UpdateDisplay()
+                                    time.sleep(1) #Et on attend une seconde
+                            else: #Sinon
+                                    conn.printFile(printer_name, '/home/pi/Desktop/tempprint.jpg', "PhotoBooth", {})
+                                    countDown = 55 #On place un temps en secondes dans la variable countDown le temps que l'impression se termine
+                                    while countDown > 0:      
+                                        BackgroundColor = ""
+                                        Numeral = ""
+                                        Message = "Impression en cours... " + str(countDown) #On affiche impression en cours + le compteur
+                                        UpdateDisplay()        
+                                        countDown = countDown - 1
+                                        time.sleep(1)          
+            else: #Sinon, donc si le total d'images prises est superieur au total d'image prevues par photos
+                    Message = "Nous vous enverrons vos photos"
+                    Numeral = ""
+                    UpdateDisplay()
+                    time.sleep(1)
                 
-        Message = ""
-        Numeral = ""
-        ImageShowed = False
-        UpdateDisplay()
-        time.sleep(1)
+    Message = ""
+    Numeral = ""
+    ImageShowed = False
+    UpdateDisplay()
+    time.sleep(1)
 
 def MyCallback(channel): #Sert a dire de ne plus detecter d'evenements sur le pin BUTTON_PIN (25 donc) avant de repasser Printing a TRUE
     global Printing

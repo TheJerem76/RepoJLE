@@ -111,8 +111,6 @@ def input(events):
         if (event.type == QUIT or
                 (event.type == KEYDOWN and event.key == K_ESCAPE)):
             pygame.quit()
-
-#a quoi sert cette premiere fonction input ? Simplement a quitter en cas d'appui sur une touche ?
             
 # set variables to properly display the image on screen at right ratio
 def set_demensions(img_w, img_h): #Fonction utile que dans la fonction show_image pour que la dimention d'afficahge soit correcte.

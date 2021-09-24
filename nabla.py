@@ -9,7 +9,7 @@ from pygame.locals import *
 import os
 
 GPIO.setmode(GPIO.BCM) #Attention au choix du port ; référez-vous au site https://fr.pinout.xyz/
-GPIO.setup(24, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(25, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 pygame.init()
 screen = pygame.display.set_mode((0,0),pygame.FULLSCREEN)
@@ -85,7 +85,7 @@ while True : #boucle jusqu'a interruption
         print ("\n attente boucle")
         
         #on attend que le bouton soit pressé
-        GPIO.wait_for_edge(24, GPIO.FALLING)
+        GPIO.wait_for_edge(25, GPIO.FALLING)
         # on a appuyé sur le bouton...
 
 
@@ -121,7 +121,7 @@ while True : #boucle jusqu'a interruption
         #canal = son.play()
 
 
-        if (GPIO.input(24) == 0): #si le bouton est encore enfoncé (son etat sera 0)
+        if (GPIO.input(25) == 0): #si le bouton est encore enfoncé (son etat sera 0)
               print ("Ho ; bouton  appuyé !!! Je dois sortir ; c'est le chef qui l'a dit !")
               break # alors on sort du while 
  

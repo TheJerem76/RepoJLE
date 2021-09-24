@@ -55,7 +55,7 @@ def AfficherTexte(message): # pour pouvoir afficher des messages sur un font noi
     screen.fill(pygame.Color(0,0,0))
     font = pygame.font.SysFont("verdana", 30, bold=1)
     textsurface = font.render(message, 1, pygame.Color(255,255,255))
-    rectTexte = texte.get_rect()
+    rectTexte = message.get_rect()
     rectTexte.center = rectScreen.center
     screen.blit(textsurface,(35,40))
     pygame.display.update()
@@ -64,7 +64,7 @@ def AfficherTexte(message): # pour pouvoir afficher des messages sur un font noi
 def AfficherTexteTransparent(message): # pour pouvoir afficher des messages en conservant le font 
     font = pygame.font.SysFont("verdana", 30, bold=1)
     textsurface = font.render(message, 1, pygame.Color(255,255,255))
-    rectTexte = texte.get_rect()
+    rectTexte = message.get_rect()
     rectTexte.center = rectScreen.center
     screen.blit(textsurface,(35,40))
     pygame.display.update()
@@ -73,7 +73,7 @@ def AfficherTexteTransparent(message): # pour pouvoir afficher des messages en c
 def AfficherTexteAccueil(message): # Afficher un Texte sur l'image d'accueil (ou à la place) 
     font = pygame.font.SysFont("verdana", 30, bold=1)
     textsurface = font.render(message, 1, pygame.Color(100,150,200))
-    rectTexte = texte.get_rect()
+    rectTexte = message.get_rect()
     rectTexte.center = rectScreen.center
     screen.blit(textsurface,(35,40))
     pygame.display.update()

@@ -3,6 +3,7 @@
 
 #Pour les tests et tuto, voir aussi https://www.w3schools.com/python/default.asp
 
+#-----------------------------------#
 #-----! Import des librairies !-----#
 import picamera
 import pygame
@@ -18,8 +19,11 @@ from pygame.locals import *
 from time import sleep
 from PIL import Image, ImageDraw
 from datetime import datetime
+#-----------------------------------#
 
 
+
+#--------------------------------------#
 #-----! Définition des variables !-----#
 Numeral = ""  # Numeral is the number display
 Message = ""  # Message is a fullscreen message
@@ -43,15 +47,22 @@ BUTTON_PIN = 25
 #IMAGE_HEIGHT = 360
 IMAGE_WIDTH = 1024 # Base d'un ratio 16/9 ; utilise pour un resize en ligne 318
 IMAGE_HEIGHT = 600
+#--------------------------------------#
+
 
 
 # Load the background template
 bgimage = PIL.Image.open(templatePath) #La variable bgimage ouvre l'image ayant pour nom templatePath
 
+#---------------------------------#
 #-----! On définit les GPIO !-----#
 GPIO.setmode(GPIO.BCM) # Cela signifie que le comptage des PIN se fera selon l'approche de numerotation electronique de la carte RPI. Voir https://deusyss.developpez.com/tutoriels/RaspberryPi/PythonEtLeGpio/#LIII-A
 GPIO.setup(BUTTON_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP) #BUTTON_PIN est une variable = 25 definie en ligne.35. Ici on set le pin 25 en entree
 
+#---------------------------------#
+
+
+#--------------------------------------#
 #-----! Initialisation de PyGame !-----#
 #Pour info, pygame est un truc qui donne la possibilite d'afficher des elements a l'ecran
 pygame.init()  # Initialise pygame - https://devdocs.io/pygame/
@@ -106,16 +117,19 @@ camera.preview_fullscreen = True
 #camera.image_effect          = 'none'
 #camera.color_effects         = None
 #camera.crop                  = (0.0, 0.0, 1.0, 1.0)
+#--------------------------------------#
 
 
-# A function to handle keyboard/mouse/device input events
+#---------------------------------------------------------------------#
+#-----! A function to handle keyboard/mouse/device input events !-----#
 def input(events):
     for event in events:  # Hit the ESC key to quit the slideshow.
-        if (event.type == QUIT or
-                (event.type == KEYDOWN and event.key == K_ESCAPE)):
+        if (event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE)):
             pygame.quit()
-            
-# set variables to properly display the image on screen at right ratio
+#---------------------------------------------------------------------#
+
+#----------------------------------------------------------------------------------#
+#-----! set variables to properly display the image on screen at right ratio !-----#
 def set_demensions(img_w, img_h): #Fonction utile que dans la fonction show_image pour que la dimention d'afficahge soit correcte.
     # Note this only works when in booting in desktop mode. 
     # When running in terminal, the size is not correct (it displays small). Why?
@@ -146,8 +160,11 @@ def set_demensions(img_w, img_h): #Fonction utile que dans la fonction show_imag
         transform_x = videoObject.current_w
         transform_y = videoObject.current_h
         offset_y = offset_x = 0
+#----------------------------------------------------------------------------------#
 
-def InitFolder(): #Cette fonction semble servir a definir le dossier "images" afin de stoker les photos
+#-------------------------------------------------------------------#
+#-----! Definir le dossier "images" afin de stoker les photos !-----#
+def InitFolder():
     global imagefolder
     global Message
  
@@ -162,8 +179,11 @@ def InitFolder(): #Cette fonction semble servir a definir le dossier "images" af
     imagefolder2 = os.path.join(imagefolder, 'images') #Construction du path /images (on ajoute /image au path contenu dans imagefolder)
     if not os.path.isdir(imagefolder2): #Si la fonction ne se verifie pas...
         os.makedirs(imagefolder2) #Alors on cree le chemin contenu dans la variable imagefolder2
-        
-def DisplayText(fontSize, textToDisplay): # Sert a initialiser la variable Message, Numeral ou CountDownPhoto dans la fonction UpdateDisplay. Comme ca, a l'appel de UpdateDisplay qui vient toujours apres l'initialisation de l'une des trois variable, ce qui soit s'afficher s'affichera selon le type de message choisi a travers la variable utilise.
+#-------------------------------------------------------------------#
+
+#--------------------------------------------------------------------------------------------------------#
+#-----! Initialiser la variable Message, Numeral ou CountDownPhoto dans la fonction UpdateDisplay. !-----#
+def DisplayText(fontSize, textToDisplay): # Comme ca, a l'appel de UpdateDisplay qui vient toujours apres l'initialisation de l'une des trois variable, ce qui soit s'afficher s'affichera selon le type de message choisi a travers la variable utilise.
 
     global Numeral
     global Message
@@ -189,8 +209,11 @@ def DisplayText(fontSize, textToDisplay): # Sert a initialiser la variable Messa
                     backgroundPicture.blit(text, textpos) #blit est une fonction de pygame qui superpose text avec textpos
             else:
                     background.blit(text, textpos)
-                
-def UpdateDisplay(): #Cette fonction va initialiser les variables BackgroundColor, Message, Numeral et CountDownPhoto selon des proprietes de couleurs et taille
+#--------------------------------------------------------------------------------------------------------#
+
+#--------------------------------------------------------------------------------------------------------------------------------------#
+#-----! Initialiser les variables BackgroundColor, Message, Numeral et CountDownPhoto selon des proprietes de couleurs et taille !-----#
+def UpdateDisplay():
     # init global variables from main thread
     global Numeral
     global Message
@@ -253,9 +276,11 @@ def UpdateDisplay(): #Cette fonction va initialiser les variables BackgroundColo
    
     pygame.display.flip() #MaJ pour voir ce qui a ete blitte (colle) sur l'ecran.
     return
+#--------------------------------------------------------------------------------------------------------------------------------------#
 
-
-def ShowPicture(file, delay): #Va montrer le cliche pris dans CapturePicture (pas de template ici)
+#------------------------------------------------------------------------------#
+#-----! Montrer le cliche pris dans CapturePicture (pas de template ici) !-----#
+def ShowPicture(file, delay):
     global pygame
     global screenPicture
     global backgroundPicture
@@ -269,8 +294,10 @@ def ShowPicture(file, delay): #Va montrer le cliche pris dans CapturePicture (pa
     pygame.display.flip()  # update the display - MaJ pour voir ce qui a ete blitte (colle) sur l'ecran.
     ImageShowed = True
     time.sleep(delay)
-    
-# display one image on screen
+#------------------------------------------------------------------------------#
+
+#-----------------------------------------#
+#-----! Display one image on screen !-----#
 def show_image(image_path): #Fonction chargee d'afficher une image. Elle attend en entree la variable image_path (path d'un fichier photo) afin de savoir quoi afficher
     screen.fill(pygame.Color("white")) # clear the screen   
     img = pygame.image.load(image_path) # load the image
@@ -280,8 +307,11 @@ def show_image(image_path): #Fonction chargee d'afficher une image. Elle attend 
     y = (videoObject.current_h / 2) - (img.get_height() / 2)
     screen.blit(img,(x,y)) #Va dessiner au sein d'une surface le contenu de img en fonction des positions definies en x et y.
     pygame.display.flip() #MaJ pour voir ce qui a ete blitte (colle) sur l'ecran.
+#-----------------------------------------#
 
-def CapturePicture(): #Cette fonction est chargee de prendre une cliche et de retourner son nom.
+#---------------------------------------------------------#
+#-----! Prendre une cliche et retourner son nom. !-----#
+def CapturePicture():
     global imagecounter
     global imagefolder
     global Numeral
@@ -340,7 +370,9 @@ def CapturePicture(): #Cette fonction est chargee de prendre une cliche et de re
         ShowPicture(filename, 2)
         ImageShowed = False
         return filename
+#---------------------------------------------------------#
 
+#-----------------------------------------------------------#
 #-----! Grosse fonction qui va faire plusieurs choses !-----#
 def PrisePhoto():
     global imagecounter
@@ -465,13 +497,19 @@ def PrisePhoto():
     ImageShowed = False
     UpdateDisplay()
     time.sleep(1)
+#-----------------------------------------------------------#
 
-def MyCallback(channel): #Sert a dire de ne plus detecter d'evenements sur le pin BUTTON_PIN (25 donc) avant de repasser Printing a TRUE
+#-------------------------------------------------------------------------------------------------------------#
+#-----! Ne plus detecter d'evenements sur le pin BUTTON_PIN (25 donc) avant de repasser Printing a TRUE !-----#
+def MyCallback(channel):
     global Printing
     GPIO.remove_event_detect(BUTTON_PIN)
     Printing=True
-    
-def WaitForPrintingEvent(): #Charge de retourner TRUE ou FALSE
+#-------------------------------------------------------------------------------------------------------------#
+
+#-------------------------------------#
+#-----! Retourner TRUE ou FALSE !-----#
+def WaitForPrintingEvent():
     global BackgroundColor
     global Numeral
     global Message
@@ -498,7 +536,9 @@ def WaitForPrintingEvent(): #Charge de retourner TRUE ou FALSE
         time.sleep(1) #on attends 1s
         
     GPIO.remove_event_detect(BUTTON_PIN) #On nettoie la queue d'evenements
+#-------------------------------------#
 
+#------------------------------------------------------------------------------------------------------------#
 #-----! EVENEMENT va renvoyer si un appui a été effectué ou non sur le bouton pour lancer le programme !-----#
 def Evenement(): #Est en charge de retourner TRUE ou FALSE
     global pygame
@@ -510,17 +550,19 @@ def Evenement(): #Est en charge de retourner TRUE ou FALSE
                     RienNeSePasse = False #Alors on indique cette variable change.           
                     return #On retourne l'etat
             for event in pygame.event.get(): #pygame.event.get() va lire les evenements en attente dans la queue ainsi que les y retirer.           
-                    if event.type == pygame.KEYDOWN: #Si dans la queue il y a un appui sur la fleche du bas sur le clavier alors on attends 0.2s (fin de la fonction)
-                        if event.key == pygame.K_ESCAPE: #Mais si il y a un appui sur la touche echap https://www.pygame.org/docs/ref/key.html#comment_pygame_key_name
-                            pygame.quit() #Alors on quitte le programme
+                    if event.type == pygame.KEYDOWN: #Si dans la queue il y a un appui sur une touche du clavier...
+                        if event.key == pygame.K_ESCAPE: #...et qu'il s'agit de la touche echap...
+                            pygame.quit() #...alors on quitte le programme https://www.pygame.org/docs/ref/key.html#comment_pygame_key_name
                         if event.key == pygame.K_DOWN: #Toutefois s'il y a un appuisur la fleche du bas
                             RienNeSePasse = False #Alors on change l'etat et donc on attend 0.2s
                             return #On retourne l'etat
             time.sleep(0.2)
+#------------------------------------------------------------------------------------------------------------#
 
-            
+#-----------------------------------------------------------------------#
 #-----! Fonction principale du programme, c'est la porte d'entrée !-----#
 def main(threadName, *args): # *args correspond a un tuple qui peut donc contenir plusieurs arguments quels qu'ils soient, var, string, float, etc.
+    Initfolder():
     while True: #Tant que Evenement renvoie TRUE
             pygame.init() #Initialisation de pygame, cela va charger tous les modules
             ecran = pygame.display.set_mode((0,0), pygame.FULLSCREEN) #On créé une fenêtre avec le module display, on met 0,0 en argument avec le flag fullscreen pour que le plein écran fonctionne. (https://zestedesavoir.com/tutoriels/846/pygame-pour-les-zesteurs/1381_a-la-decouverte-de-pygame/creer-une-simple-fenetre-personnalisable/)
@@ -538,7 +580,9 @@ def main(threadName, *args): # *args correspond a un tuple qui peut donc conteni
             time.sleep(0.2) #Puis on attends 0.2s
             PrisePhoto() #Puis on lance la fonction TakePictures
     GPIO.cleanup()
+#-----------------------------------------------------------------------#
 
-
-# launch the main thread
+#------------------------------------#
+#-----! launch the main thread !-----#
 Thread(target=main, args=('Main', 1)).start() # Cela represente la fonction principale du programme. C'est une activite de fil d'execution qui va lancer la fonction main.
+#------------------------------------#

@@ -76,7 +76,7 @@ if (os.path.isdir("/home/pi/Desktop/photos") == False): # si le dossier pour sto
     os.mkdir("/home/pi/Desktop/photos")                  # alors on crée le dossier (sur le bureau)
     os.chmod("/home/pi/Desktop/photos",0o777)            # et on change les droits pour pouvoir effacer des photos
 
-    AfficherPhoto("/home/pi/Photobooth/images/appuyezbouton.jpg")
+AfficherPhoto("/home/pi/Photobooth/images/appuyezbouton.jpg")
 #AfficherTexteAccueil("Installez-vous et appuyez sur le bouton pour prendre une photo")
 
 

@@ -15,9 +15,9 @@ pygame.init()
 screen = pygame.display.set_mode((0,0),pygame.FULLSCREEN)
 width, height = screen.get_size()
 
-pygame.mixer.init()
-son = pygame.mixer.Sound('/home/pi/Photomaton/son.wav')
-canal = son.play()
+#Ppygame.mixer.init()
+#son = pygame.mixer.Sound('/home/pi/Photomaton/son.wav')
+#canal = son.play()
 
 
 def PrisePhoto(NomPhoto): #prendre une photo avec Raspistill
@@ -116,9 +116,9 @@ while True : #boucle jusqu'a interruption
 
         #on recommence en rechargeant l'écran d'accueil
         AfficherPhoto("/home/pi/Photomaton/accueil.png")
-        pygame.mixer.init()
-        son = pygame.mixer.Sound('/home/pi/Photomaton/son.wav')
-        canal = son.play()
+        #pygame.mixer.init()
+        #son = pygame.mixer.Sound('/home/pi/Photomaton/son.wav')
+        #canal = son.play()
 
 
         if (GPIO.input(24) == 0): #si le bouton est encore enfoncé (son etat sera 0)

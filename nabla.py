@@ -21,7 +21,7 @@ width, height = screen.get_size()
 
 
 def PrisePhoto(NomPhoto): #prendre une photo avec Raspistill
-    command = "sudo raspistill -t 5000 -w 1200 -h 675 -o "+ NomPhoto +" -q 100" #prend une photo
+    command = "sudo raspistill -t 5000 -w 1200 -h 675 -o "+ NomPhoto +" -q 100" #prend une photo après 5sec de largeur 1200 et hauteur 675 de qualité 100
     os.system(command)
 
 def AfficherPhoto(NomPhoto): # affiche NomPhoto
@@ -52,22 +52,25 @@ def decompte():
 
 def AfficherTexte(message): # pour pouvoir afficher des messages sur un font noir 
     screen.fill(pygame.Color(0,0,0))
-    font = pygame.font.SysFont("verdana", 150, bold=1)
+    font = pygame.font.SysFont("verdana", 30, bold=1)
     textsurface = font.render(message, 1, pygame.Color(255,255,255))
+    rectTexte.center = rectScreen.center
     screen.blit(textsurface,(35,40))
     pygame.display.update()
 
 
 def AfficherTexteTransparent(message): # pour pouvoir afficher des messages en conservant le font 
-    font = pygame.font.SysFont("verdana", 100, bold=1)
+    font = pygame.font.SysFont("verdana", 30, bold=1)
     textsurface = font.render(message, 1, pygame.Color(255,255,255))
+    rectTexte.center = rectScreen.center
     screen.blit(textsurface,(35,40))
     pygame.display.update()
 
 
 def AfficherTexteAccueil(message): # Afficher un Texte sur l'image d'accueil (ou à la place) 
-    font = pygame.font.SysFont("verdana", 50, bold=1)
+    font = pygame.font.SysFont("verdana", 30, bold=1)
     textsurface = font.render(message, 1, pygame.Color(100,150,200))
+    rectTexte.center = rectScreen.center
     screen.blit(textsurface,(35,40))
     pygame.display.update()
 

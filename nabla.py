@@ -14,6 +14,7 @@ GPIO.setup(25, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 pygame.init()
 screen = pygame.display.set_mode((0,0),pygame.FULLSCREEN)
 width, height = screen.get_size()
+rectScreen = screen.get_rect()
 
 #Ppygame.mixer.init()
 #son = pygame.mixer.Sound('/home/pi/Photomaton/son.wav')

@@ -115,7 +115,7 @@ while True : #boucle jusqu'a interruption
 
 
         #on recommence en rechargeant l'écran d'accueil
-        AfficherPhoto("/home/pi/Photomaton/accueil.png")
+        AfficherPhoto("/home/pi/Photobooth/images/appuyezbouton.jpg")
         #pygame.mixer.init()
         #son = pygame.mixer.Sound('/home/pi/Photomaton/son.wav')
         #canal = son.play()

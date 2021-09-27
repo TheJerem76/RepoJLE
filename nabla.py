@@ -137,7 +137,7 @@ while True : #boucle jusqu'a interruption
             if event.type == pygame.KEYDOWN: #Si dans la queue il y a un appui sur la fleche du bas sur le clavier alors on attends 0.2s (fin de la fonction)
                 if event.key == pygame.K_ESCAPE: #Mais si il y a un appui sur la touche echap https://www.pygame.org/docs/ref/key.html#comment_pygame_key_name
                     print("Appui sur Echap, fin du programme")
-                    pygame.quit() #Alors on quitte le programme
+                    #pygame.quit() #Alors on quitte le programme
                     break
 
   except KeyboardInterrupt:

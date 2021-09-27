@@ -1,5 +1,8 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*
+
+# Pour info, la taille de l'écran 7 pouces est de 640x480.
+
 import RPi.GPIO as GPIO
 import time
 from datetime import datetime
@@ -57,9 +60,9 @@ def AfficherTexte(message): # pour pouvoir afficher des messages sur un fond noi
     screen.fill(pygame.Color(0,0,0))
     font = pygame.font.SysFont("verdana", 30, bold=1)
     textsurface = font.render(message, 1, pygame.Color(255,255,255))
-    #rectTexte = message.get_rect()
-    #rectTexte.center = rectScreen.center
-    screen.blit(textsurface,(135,140))
+    rectTexte = textsurface.get_rect()
+    rectTexte.center = rectScreen.center
+    screen.blit(textsurface,(135,140)) # Position x et y du texte
     pygame.display.update()
 
 

@@ -40,17 +40,17 @@ def AfficherPhoto(NomPhoto): # affiche NomPhoto
 
 
 def decompte():
-  AfficherTexte("      Attention")
+  AfficherTexte("Attention")
   time.sleep(1)
-  AfficherTexte("      Photo après")
+  AfficherTexte("Photo après")
   time.sleep(1)
-  AfficherTexte("      5 secondes")
+  AfficherTexte("5 secondes")
   time.sleep(1)
-  AfficherTexte("      une fois que")
+  AfficherTexte("une fois que")
   time.sleep(1)
-  AfficherTexte("      vous vous verrez")
+  AfficherTexte("vous vous verrez")
   time.sleep(1)
-  AfficherTexte("      Alors --> souriez")
+  AfficherTexte("Alors --> souriez")
   time.sleep(1)
   AfficherTexte("--> Photo dans 5 secondes")
   time.sleep(1)

@@ -53,18 +53,18 @@ def decompte():
   time.sleep(1)
 
 
-def AfficherTexte(message): # pour pouvoir afficher des messages sur un font noir 
+def AfficherTexte(message): # pour pouvoir afficher des messages sur un fond noir 
     screen.fill(pygame.Color(0,0,0))
     font = pygame.font.SysFont("verdana", 30, bold=1)
     textsurface = font.render(message, 1, pygame.Color(255,255,255))
-    pygame.Surface.scroll(textsurface, dx=140, dy=120)
     #rectTexte = message.get_rect()
     #rectTexte.center = rectScreen.center
     screen.blit(textsurface,(35,40))
+    pygame.Surface.scroll(textsurface, dx=140, dy=120)
     pygame.display.update()
 
 
-def AfficherTexteTransparent(message): # pour pouvoir afficher des messages en conservant le font 
+def AfficherTexteTransparent(message): # pour pouvoir afficher des messages en conservant le fond
     font = pygame.font.SysFont("verdana", 30, bold=1)
     textsurface = font.render(message, 1, pygame.Color(255,255,255))
     #rectTexte = message.get_rect()

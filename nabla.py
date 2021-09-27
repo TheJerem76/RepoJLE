@@ -91,7 +91,9 @@ AfficherPhoto("/home/pi/Photobooth/images/appuyezbouton.jpg")
 
 while True : #boucle jusqu'a interruption
   try:
-        print ("\n attente boucle")
+        print ("\n attente boucle \n ")
+        screensize = screen.get_rect()
+        print ("L'écran fait", screensize)
         
         #on attend que le bouton soit pressé
         GPIO.wait_for_edge(25, GPIO.FALLING)

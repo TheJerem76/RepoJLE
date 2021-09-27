@@ -57,6 +57,7 @@ def AfficherTexte(message): # pour pouvoir afficher des messages sur un font noi
     screen.fill(pygame.Color(0,0,0))
     font = pygame.font.SysFont("verdana", 30, bold=1)
     textsurface = font.render(message, 1, pygame.Color(255,255,255))
+    pygame.Surface.scroll(screen, dx=40, dy=20)
     #rectTexte = message.get_rect()
     #rectTexte.center = rectScreen.center
     screen.blit(textsurface,(35,40))
@@ -131,7 +132,7 @@ while True : #boucle jusqu'a interruption
 
 
         if (GPIO.input(25) == 0): #si le bouton est encore enfoncé (son etat sera 0)
-              print ("Ho ; bouton  appuyé !!! Je dois sortir ; c'est le chef qui l'a dit !")
+              print ("Ho ; bouton  appuyé !!! Je dois sortir ; c'est le chef qui l'a dit !") #Va afficher ça dans la console
               break # alors on sort du while
             
         for event in pygame.event.get(): #pygame.event.get() va lire les evenements en attente dans la queue ainsi que les y retirer.

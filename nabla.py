@@ -59,8 +59,7 @@ def AfficherTexte(message): # pour pouvoir afficher des messages sur un fond noi
     textsurface = font.render(message, 1, pygame.Color(255,255,255))
     #rectTexte = message.get_rect()
     #rectTexte.center = rectScreen.center
-    screen.blit(textsurface,(35,40))
-    pygame.Surface.scroll(textsurface, dx=140, dy=120)
+    screen.blit(textsurface,(135,140))
     pygame.display.update()
 
 

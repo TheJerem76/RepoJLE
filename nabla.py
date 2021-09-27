@@ -15,6 +15,7 @@ pygame.init()
 screen = pygame.display.set_mode((0,0),pygame.FULLSCREEN)
 width, height = screen.get_size()
 rectScreen = screen.get_rect()
+pygame.mouse.set_visible (False)
 
 #Ppygame.mixer.init()
 #son = pygame.mixer.Sound('/home/pi/Photomaton/son.wav')

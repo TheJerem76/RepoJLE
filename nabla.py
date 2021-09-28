@@ -123,7 +123,7 @@ while True : #boucle jusqu'a interruption
      #...et par dessus on affiche un message
     AfficherTexteTransparent("OK ; voici ce qui est dans la boite ...")
     time.sleep(5) #Ajout d'un temps d'affichage afin de repartir sur l'accueil ensuite
-    
+    pygame.display.flip()
      #on recommence en rechargeant l'écran d'accueil
     #AfficherPhoto("/home/pi/Photobooth/images/appuyezbouton.jpg")
     #pygame.mixer.init()

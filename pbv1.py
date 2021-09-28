@@ -56,12 +56,12 @@ def AfficherTexte(message): # pour pouvoir afficher des messages sur un fond noi
     font = pygame.font.SysFont("verdana", 30, bold=1)
     textsurface = font.render(message, 1, pygame.Color(255,255,255))
     textpos = text.get_rect()
-            textpos.centerx = background.get_rect().centerx
-            textpos.centery = background.get_rect().centery
-            if(ImageShowed):
-                    backgroundPicture.blit(text, textpos)
-            else:
-                    background.blit(text, textpos)
+    textpos.centerx = background.get_rect().centerx
+    textpos.centery = background.get_rect().centery
+        if(ImageShowed):
+            backgroundPicture.blit(text, textpos)
+        else:
+            background.blit(text, textpos)
                     
     #screen.blit(textsurface,(240,240)) # Position x et y du texte
     #pygame.display.update()

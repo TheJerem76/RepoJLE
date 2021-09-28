@@ -4,7 +4,7 @@
 # Pour info, la taille de l'écran 7 pouces est de 640x480.
 
 import RPi.GPIO as GPIO
-import time
+import time #Utile pour le sime.sleep pour mettre en pause le programme
 from datetime import datetime
 from PIL import Image
 import pygame

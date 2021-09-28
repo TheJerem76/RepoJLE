@@ -124,22 +124,22 @@ while True : #boucle jusqu'a interruption
     AfficherTexteTransparent("OK ; voici ce qui est dans la boite ...")
     time.sleep(5) #Ajout d'un temps d'affichage afin de repartir sur l'accueil ensuite
     
-    #on recommence en rechargeant l'écran d'accueil
-    AfficherPhoto("/home/pi/Photobooth/images/appuyezbouton.jpg")
+     #on recommence en rechargeant l'écran d'accueil
+    #AfficherPhoto("/home/pi/Photobooth/images/appuyezbouton.jpg")
     #pygame.mixer.init()
     #son = pygame.mixer.Sound('/home/pi/Photomaton/son.wav')
     #canal = son.play()
 
 
-    if (GPIO.input(25) == 0): #si le bouton est encore enfoncé (son etat sera 0)
-          print ("Ho ; bouton  appuyé !!! Je dois sortir ; c'est le chef qui l'a dit !") #Va afficher ça dans la console
-          break # alors on sort du while
+    #if (GPIO.input(25) == 0): #si le bouton est encore enfoncé (son etat sera 0)
+          #print ("Ho ; bouton  appuyé !!! Je dois sortir ; c'est le chef qui l'a dit !") #Va afficher ça dans la console
+          #break # alors on sort du while
           
-    for event in pygame.event.get(): #pygame.event.get() va lire les evenements en attente dans la queue ainsi que les y retirer.
-        if event.type == pygame.KEYDOWN: #Si dans la queue il y a un appui sur la fleche du bas sur le clavier alors on attends 0.2s (fin de la fonction)
-            if event.key == pygame.K_ESCAPE: #Mais si il y a un appui sur la touche echap https://www.pygame.org/docs/ref/key.html#comment_pygame_key_name
-                print("Appui sur Echap, fin du programme")
-                pygame.quit() #Alors on quitte le programme
+    #for event in pygame.event.get(): #pygame.event.get() va lire les evenements en attente dans la queue ainsi que les y retirer.
+        #if event.type == pygame.KEYDOWN: #Si dans la queue il y a un appui sur la fleche du bas sur le clavier alors on attends 0.2s (fin de la fonction)
+            #if event.key == pygame.K_ESCAPE: #Mais si il y a un appui sur la touche echap https://www.pygame.org/docs/ref/key.html#comment_pygame_key_name
+                #print("Appui sur Echap, fin du programme")
+                #pygame.quit() #Alors on quitte le programme
 
 
 GPIO.cleanup()           # reinitialisation GPIO lors d'une sortie normale

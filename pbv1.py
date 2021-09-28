@@ -52,6 +52,8 @@ def decompte():
 
 
 def AfficherTexte(message): # pour pouvoir afficher des messages sur un fond noir 
+    global screen
+    
     screen.fill(pygame.Color(0,0,0))
     font = pygame.font.SysFont("verdana", 30, bold=1)
     textsurface = font.render(message, 1, pygame.Color(255,255,255))

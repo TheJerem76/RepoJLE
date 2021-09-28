@@ -15,9 +15,9 @@ GPIO.setmode(GPIO.BCM) #Attention au choix du port ; référez-vous au site http
 GPIO.setup(25, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 pygame.init()
+screen = pygame.display.set_mode((0,0),pygame.FULLSCREEN)
 background = pygame.Surface(screen.get_size())  # Create the background object ; pygame.Surface va creer un nouvel objet image avec la taille pour arguments. Screen est une variable-
 background = background.convert()  # Convert it to a background - Pour que le format de pixel soit identique entre le fond et le background
-screen = pygame.display.set_mode((0,0),pygame.FULLSCREEN)
 backgroundPicture = pygame.Surface(screenPicture.get_size())  # Create the background object
 backgroundPicture = background.convert()  # Convert it to a background - Pour que le format de pixel soit identique entre le fond et le background
 #screen = pygame.display.set_mode((0,0),pygame.RESIZABLE)

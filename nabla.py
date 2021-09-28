@@ -43,16 +43,6 @@ def AfficherPhoto(NomPhoto): # affiche NomPhoto
 def decompte():
   AfficherTexte("Attention")
   time.sleep(1)
-  AfficherTexte("Photo après")
-  time.sleep(1)
-  AfficherTexte("5 secondes")
-  time.sleep(1)
-  AfficherTexte("une fois que")
-  time.sleep(1)
-  AfficherTexte("vous vous verrez")
-  time.sleep(1)
-  AfficherTexte("Alors --> souriez")
-  time.sleep(1)
   AfficherTexte("--> Photo dans 5 secondes")
   time.sleep(1)
 
@@ -115,33 +105,22 @@ while True : #boucle jusqu'a interruption
     screensize = screen.get_rect()
     print ("L'écran fait", screensize)
         
-    #on attend que le bouton soit pressé
+     #on attend que le bouton soit pressé
     Evenement()
-    #GPIO.wait_for_edge(25, GPIO.FALLING)
-    # on a appuyé sur le bouton...
-
-
-    #on lance le décompte
+     # on a appuyé sur le bouton...
+     #on lance le décompte
     decompte()
-
-
-    #on génère le nom de la photo avec heure_min_sec
+     #on génère le nom de la photo avec heure_min_sec
     date_today = datetime.now()
     nom_image = date_today.strftime('%d-%m-%Y_%Hh-%Mm-%Ss') #Voir strftime de la doc https://docs.python.org/fr/3.6/library/datetime.html#strftime-strptime-behavior
-
-        
-    #on déclenche la prise de photo
+     #on déclenche la prise de photo
     chemin_photo = '/home/pi/Desktop/photos/'+nom_image+'.jpeg'
     PrisePhoto(chemin_photo) #Déclenchement de la prise de photo
     AfficherTexte("--> Merci ! <--")
-
-
-    #On affiche la photo...
     time.sleep(1)
+     #On affiche la photo...
     AfficherPhoto(chemin_photo)
-
-
-    #...et par dessus on affiche un message
+     #...et par dessus on affiche un message
     AfficherTexteTransparent("OK ; voici ce qui est dans la boite ...")
     time.sleep(5) #Ajout d'un temps d'affichage afin de repartir sur l'accueil ensuite
     

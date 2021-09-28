@@ -18,6 +18,8 @@ pygame.init()
 screen = pygame.display.set_mode((0,0),pygame.FULLSCREEN)
 background = pygame.Surface(screen.get_size())  # Create the background object ; pygame.Surface va creer un nouvel objet image avec la taille pour arguments. Screen est une variable-
 background = background.convert()  # Convert it to a background - Pour que le format de pixel soit identique entre le fond et le background
+
+screenPicture = pygame.display.set_mode((infoObject.current_w,infoObject.current_h), pygame.FULLSCREEN)  # Full screen - Idem c la variable screen
 backgroundPicture = pygame.Surface(screenPicture.get_size())  # Create the background object
 backgroundPicture = background.convert()  # Convert it to a background - Pour que le format de pixel soit identique entre le fond et le background
 #screen = pygame.display.set_mode((0,0),pygame.RESIZABLE)

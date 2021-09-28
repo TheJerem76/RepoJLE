@@ -6,7 +6,7 @@
 import RPi.GPIO as GPIO
 import time #Utile pour le sime.sleep pour mettre en pause le programme
 from datetime import datetime #Utile pour générer le nom de la photo selon la date du jour. Voir ligne 106
-from PIL import Image
+from PIL import Image #PIL sert à ouvrir, manipuler, sauveguarder des images
 import pygame
 from pygame.locals import *
 import os

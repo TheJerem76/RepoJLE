@@ -58,10 +58,11 @@ def AfficherTexte(message): # pour pouvoir afficher des messages sur un fond noi
     textpos = text.get_rect()
     textpos.centerx = background.get_rect().centerx
     textpos.centery = background.get_rect().centery
-        if(ImageShowed):
-            backgroundPicture.blit(text, textpos)
-        else:
-            background.blit(text, textpos)
+    
+    if(ImageShowed):
+        backgroundPicture.blit(text, textpos)
+    else:
+        background.blit(text, textpos)
                     
     #screen.blit(textsurface,(240,240)) # Position x et y du texte
     #pygame.display.update()

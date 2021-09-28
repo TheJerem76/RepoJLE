@@ -393,7 +393,7 @@ def PrisePhoto():
     global PhotosPerCart
     global TotalImageCount    
     
-    input(pygame.event.get())
+    input(pygame.event.get()) #On vient regarder dans la liste des evenements qu'il n'y ait pas de touche Echap appuyé auquel cas on quitte le programme
     show_image('images/faitesbeausourire.jpg')
     time.sleep(3) #Temps d'affichage de l'image
     filename1 = CapturePicture() # La variable filename1 sera egale au resultat obtenu suite au lancement de la fonction CapturePicture, c'est a dire au nom de la photo.

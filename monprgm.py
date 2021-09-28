@@ -79,10 +79,9 @@ screen = pygame.display.set_mode((videoObject.current_w,videoObject.current_h), 
 #Size en x : videoObject.current_w
 #Size en y : videoObject.current_y
 
-#videoObject est egal a display.info qui permet l'affichage et qui dispose de plusieurs attributs dont current_w et current_y. Par defaut, quelles sont les valeurs prises par ces attributs ?
+#videoObject est egal a display.info qui permet l'affichage et qui dispose de plusieurs attributs dont current_w et current_y.
 
 #pygame.FULLSCREEN correspond a un attribut de fenetre permettant de retirer les bordures.
-#
 
 background = pygame.Surface(screen.get_size())  # Create the background object ; pygame.Surface va creer un nouvel objet image avec la taille pour arguments. Screen est une variable-
 background = background.convert()  # Convert it to a background - Pour que le format de pixel soit identique entre le fond et le background
@@ -185,7 +184,7 @@ def InitFolder():
 #-------------------------------------------------------------------#
 
 #--------------------------------------------------------------------------------------------------------#
-#-----! Initialiser la variable Message, Numeral ou CountDownPhoto dans la fonction UpdateDisplay. !-----#
+#-----! Initialiser la variable Message, Numeral ou CountDownPhoto dans la fonction UpdateDisplay !-----#
 def DisplayText(fontSize, textToDisplay): # Comme ca, a l'appel de UpdateDisplay qui vient toujours apres l'initialisation de l'une des trois variable, ce qui soit s'afficher s'affichera selon le type de message choisi a travers la variable utilise.
 
     global Numeral
@@ -203,7 +202,7 @@ def DisplayText(fontSize, textToDisplay): # Comme ca, a l'appel de UpdateDisplay
             background.fill(pygame.Color("black"))
     if (textToDisplay != ""):
             #print(displaytext)
-            font = pygame.font.Font(None, fontSize) #pygame.font.Font va cahrger la font d'un fichier defini en attribu. Si le fichier est None, alors la font sera prise par defaut. L'autre attribu correspond a la taille de la font.
+            font = pygame.font.Font(None, fontSize) #pygame.font.Font va charger la font d'un fichier defini en attribu. Si le fichier est None, alors la font sera prise par defaut. L'autre attribu correspond a la taille de la font.
             text = font.render(textToDisplay, 1, (227, 157, 200)) #Render creer une nouvelle surface sur laquelle dessiner l'ecriture. Impossible d'ecrire sur plus qu'une ligne. La surface creee sera de dimentions appropriee a contenir le text. Les atributs sont : Le texte a ecrire, un antialias en booleen qui correspond a des bords lisses si c'est a TRUE, la couleur (ici rose car 227 157 200) ainsi qu'en optionnel la couleur de fond du texte (surlignage je pense). La variable text va donc contenir les propriete de choisies. Voir https://devdocs.io/pygame/ref/font#pygame.font.Font.render
             textpos = text.get_rect() #Recuperation du rectangle necessaire a l'afficahge de la variable text http://www.frederic-junier.org/ISN/Cours/tutoriel-pygame.html
             textpos.centerx = background.get_rect().centerx #Positionnement du rectangle http://www.frederic-junier.org/ISN/Cours/tutoriel-pygame.html

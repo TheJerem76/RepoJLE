@@ -15,8 +15,8 @@ GPIO.setmode(GPIO.BCM) #Attention au choix du port ; référez-vous au site http
 GPIO.setup(25, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 pygame.init()
-#screen = pygame.display.set_mode((0,0),pygame.FULLSCREEN)
-screen = pygame.display.set_mode((0,0),pygame.RESIZABLE)
+screen = pygame.display.set_mode((0,0),pygame.FULLSCREEN)
+#screen = pygame.display.set_mode((0,0),pygame.RESIZABLE)
 width, height = screen.get_size()
 rectScreen = screen.get_rect()
 pygame.mouse.set_visible (False)

@@ -564,6 +564,8 @@ def Evenement(): #Est en charge de retourner TRUE ou FALSE
 #-----------------------------------------------------------------------#
 #-----! Fonction principale du programme, c'est la porte d'entrée !-----#
 def main(threadName, *args): # *args correspond a un tuple qui peut donc contenir plusieurs arguments quels qu'ils soient, var, string, float, etc.
+    global InitFolder
+    
     Initfolder()
     while True: #Tant que Evenement renvoie TRUE
             pygame.init() #Initialisation de pygame, cela va charger tous les modules

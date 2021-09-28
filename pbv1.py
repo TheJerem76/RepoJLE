@@ -15,6 +15,8 @@ GPIO.setmode(GPIO.BCM) #Attention au choix du port ; référez-vous au site http
 GPIO.setup(25, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 pygame.init()
+infoObject = pygame.display.Info() #pygame.display.Info sert a creer un objet d'information video destine a l'affichage. Il prend pour proprietes ce qu'il trouvera dans current-h et current_y qui sont des attributs de .display.info.  Voir https://devdocs.io/pygame/ref/display#pygame.display.Info
+screen = pygame.display.set_mode((infoObject.current_w,infoObject.current_h), pygame.FULLSCREEN)
 screen = pygame.display.set_mode((0,0),pygame.FULLSCREEN)
 background = pygame.Surface(screen.get_size())  # Create the background object ; pygame.Surface va creer un nouvel objet image avec la taille pour arguments. Screen est une variable-
 background = background.convert()  # Convert it to a background - Pour que le format de pixel soit identique entre le fond et le background

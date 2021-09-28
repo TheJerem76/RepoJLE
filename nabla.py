@@ -28,7 +28,7 @@ BUTTON_PIN = 25
 
 
 def PrisePhoto(NomPhoto): #prendre une photo avec Raspistill
-    command = "sudo raspistill -t 5000 -w 1200 -h 675 -o "+ NomPhoto +" -q 100" #prend une photo après 5sec de largeur 1200 et hauteur 675 de qualité 100
+    command = "sudo raspistill -t 2000 -w 1200 -h 675 -o "+ NomPhoto +" -q 100" #prend une photo après 5sec de largeur 1200 et hauteur 675 de qualité 100
     os.system(command)
 
 def AfficherPhoto(NomPhoto): # affiche NomPhoto
@@ -124,7 +124,7 @@ while True : #boucle jusqu'a interruption
     AfficherPhoto(chemin_photo)
      #...et par dessus on affiche un message
     AfficherTexteTransparent("OK ; voici ce qui est dans la boite ...")
-    time.sleep(5) #Ajout d'un temps d'affichage afin de repartir sur l'accueil ensuite
+    time.sleep(2) #Ajout d'un temps d'affichage afin de repartir sur l'accueil ensuite
     pygame.display.flip()
      #on recommence en rechargeant l'écran d'accueil
     #AfficherPhoto("/home/pi/Photobooth/images/appuyezbouton.jpg")

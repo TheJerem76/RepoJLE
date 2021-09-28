@@ -79,12 +79,31 @@ def AfficherTexteAccueil(message): # Afficher un Texte sur l'image d'accueil (ou
     pygame.display.update()
 
 
+    
+def Evenement(): #Est en charge de retourner TRUE ou FALSE
+    global pygame
+    
+    RienNeSePasse = True #initialisation de la variable RienNeSePasse a TRUE. Il n'y a pas d'evenement, rien ne se passe.
+    while RienNeSePasse: #tant qu'il n'y a pas d'evenement.... Tant que RienNeSePasse est au statut defini au-dessus
+            input_state = GPIO.input(BUTTON_PIN) #...alors on va lire (GPIO.input()) le PIN (variable BUTTON_PIN initialisé à 25 au début). Correspond a TRUE. La variable input_state correspond a le lecture de l'entree BUTTON_PIN (25). Voir https://deusyss.developpez.com/tutoriels/RaspberryPi/PythonEtLeGpio/#LIII-A
+            if input_state == False: #Si l'etat change (appui sur le bouton)...
+                    RienNeSePasse = False #Alors on indique cette variable change.           
+                    return #On retourne l'etat
+            for event in pygame.event.get(): #pygame.event.get() va lire les evenements en attente dans la queue ainsi que les y retirer.           
+                    if event.type == pygame.KEYDOWN: #Si dans la queue il y a un appui sur une touche du clavier...
+                        if event.key == pygame.K_ESCAPE: #...et qu'il s'agit de la touche echap...
+                            pygame.quit() #...alors on quitte le programme https://www.pygame.org/docs/ref/key.html#comment_pygame_key_name
+                        if event.key == pygame.K_DOWN: #Toutefois s'il y a un appuisur la fleche du bas
+                            RienNeSePasse = False #Alors on change l'etat et donc on attend 0.2s
+                            return #On retourne l'etat
+            time.sleep(0.2)
+
+            
+# Début du programme #
+
 if (os.path.isdir("/home/pi/Desktop/photos") == False): # si le dossier pour stocker les photos n'existe pas       
     os.mkdir("/home/pi/Desktop/photos")                  # alors on crée le dossier (sur le bureau)
     os.chmod("/home/pi/Desktop/photos",0o777)            # et on change les droits pour pouvoir effacer des photos
-
-    
-# Début du programme #
 
 AfficherPhoto("/home/pi/Photobooth/images/appuyezbouton.jpg")
 #AfficherTexteAccueil("Installez-vous et appuyez sur le bouton pour prendre une photo")
@@ -96,7 +115,8 @@ while True : #boucle jusqu'a interruption
     print ("L'écran fait", screensize)
         
     #on attend que le bouton soit pressé
-    GPIO.wait_for_edge(25, GPIO.FALLING)
+    Evenement()
+    #GPIO.wait_for_edge(25, GPIO.FALLING)
     # on a appuyé sur le bouton...
 
 

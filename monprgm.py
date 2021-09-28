@@ -50,15 +50,15 @@ IMAGE_HEIGHT = 600
 #--------------------------------------#
 
 
-
-# Load the background template
+#---------------------------------------------------------#
+#-----! On charge le template de fond pour la photo !-----#
 bgimage = PIL.Image.open(templatePath) #La variable bgimage ouvre l'image ayant pour nom templatePath
+#---------------------------------------------------------#
 
 #---------------------------------#
 #-----! On définit les GPIO !-----#
 GPIO.setmode(GPIO.BCM) # Cela signifie que le comptage des PIN se fera selon l'approche de numerotation electronique de la carte RPI. Voir https://deusyss.developpez.com/tutoriels/RaspberryPi/PythonEtLeGpio/#LIII-A
 GPIO.setup(BUTTON_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP) #BUTTON_PIN est une variable = 25 definie en ligne.35. Ici on set le pin 25 en entree
-
 #---------------------------------#
 
 
@@ -76,8 +76,8 @@ screen = pygame.display.set_mode((videoObject.current_w,videoObject.current_h), 
 #qui est egal a
 #ecran cree par la fonction pygame.display.set_mode
 #Et avec comme propriete les tailles suivantes :
-#En x : videoObject.current_w
-#En y : videoObject.current_y
+#Size en x : videoObject.current_w
+#Size en y : videoObject.current_y
 
 #videoObject est egal a display.info qui permet l'affichage et qui dispose de plusieurs attributs dont current_w et current_y. Par defaut, quelles sont les valeurs prises par ces attributs ?
 
@@ -93,7 +93,10 @@ backgroundPicture = background.convert()  # Convert it to a background - Pour qu
 
 transform_x = videoObject.current_w # how wide to scale the jpg when replaying
 transfrom_y = videoObject.current_h # how high to scale the jpg when replaying
+#--------------------------------------#
 
+#-----! Initialisation de la camera !-----#
+#-----------------------------------------#
 camera = picamera.PiCamera() #https://picamera.readthedocs.io/en/release-1.12/api_camera.html#picamera
 # Initialise the camera object
 #camera.resolution = (videoObject.current_w, videoObject.current_h) #la resolution de la camera prendra heigh and width de l'ecran

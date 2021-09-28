@@ -128,6 +128,7 @@ while True : #boucle jusqu'a interruption
      # on a appuyé sur le bouton...
      #on lance le décompte
     decompte()
+    pygame.display.flip()
      #on génère le nom de la photo avec heure_min_sec
     date_today = datetime.now()
     nom_image = date_today.strftime('%d-%m-%Y_%Hh-%Mm-%Ss') #Voir strftime de la doc https://docs.python.org/fr/3.6/library/datetime.html#strftime-strptime-behavior

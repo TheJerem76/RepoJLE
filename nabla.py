@@ -83,67 +83,63 @@ if (os.path.isdir("/home/pi/Desktop/photos") == False): # si le dossier pour sto
     os.mkdir("/home/pi/Desktop/photos")                  # alors on crée le dossier (sur le bureau)
     os.chmod("/home/pi/Desktop/photos",0o777)            # et on change les droits pour pouvoir effacer des photos
 
+    
+# Début du programme #
+
 AfficherPhoto("/home/pi/Photobooth/images/appuyezbouton.jpg")
 #AfficherTexteAccueil("Installez-vous et appuyez sur le bouton pour prendre une photo")
 
 
 while True : #boucle jusqu'a interruption
-  try:
-        print ("\n attente boucle \n ")
-        screensize = screen.get_rect()
-        print ("L'écran fait", screensize)
+    print ("\n attente boucle \n ")
+    screensize = screen.get_rect()
+    print ("L'écran fait", screensize)
         
-        #on attend que le bouton soit pressé
-        GPIO.wait_for_edge(25, GPIO.FALLING)
-        # on a appuyé sur le bouton...
+    #on attend que le bouton soit pressé
+    GPIO.wait_for_edge(25, GPIO.FALLING)
+    # on a appuyé sur le bouton...
 
 
-        #on lance le décompte
-        decompte()
+    #on lance le décompte
+    decompte()
 
 
-        #on génère le nom de la photo avec heure_min_sec
-        date_today = datetime.now()
-        nom_image = date_today.strftime('%d-%m-%Y_%Hh-%Mm-%Ss') #Voir strftime de la doc https://docs.python.org/fr/3.6/library/datetime.html#strftime-strptime-behavior
+    #on génère le nom de la photo avec heure_min_sec
+    date_today = datetime.now()
+    nom_image = date_today.strftime('%d-%m-%Y_%Hh-%Mm-%Ss') #Voir strftime de la doc https://docs.python.org/fr/3.6/library/datetime.html#strftime-strptime-behavior
 
         
-        #on déclenche la prise de photo
-        chemin_photo = '/home/pi/Desktop/photos/'+nom_image+'.jpeg'
-        PrisePhoto(chemin_photo) #Déclenchement de la prise de photo
-        AfficherTexte("--> Merci ! <--")
+    #on déclenche la prise de photo
+    chemin_photo = '/home/pi/Desktop/photos/'+nom_image+'.jpeg'
+    PrisePhoto(chemin_photo) #Déclenchement de la prise de photo
+    AfficherTexte("--> Merci ! <--")
 
 
-        #On affiche la photo...
-        time.sleep(1)
-        AfficherPhoto(chemin_photo)
+    #On affiche la photo...
+    time.sleep(1)
+    AfficherPhoto(chemin_photo)
 
 
-        #...et par dessus on affiche un message
-        AfficherTexteTransparent("OK ; voici ce qui est dans la boite ...")
-        time.sleep(5) #Ajout d'un temps d'affichage afin de repartir sur l'accueil ensuite
+    #...et par dessus on affiche un message
+    AfficherTexteTransparent("OK ; voici ce qui est dans la boite ...")
+    time.sleep(5) #Ajout d'un temps d'affichage afin de repartir sur l'accueil ensuite
+    
+    #on recommence en rechargeant l'écran d'accueil
+    AfficherPhoto("/home/pi/Photobooth/images/appuyezbouton.jpg")
+    #pygame.mixer.init()
+    #son = pygame.mixer.Sound('/home/pi/Photomaton/son.wav')
+    #canal = son.play()
 
 
-        #on recommence en rechargeant l'écran d'accueil
-        AfficherPhoto("/home/pi/Photobooth/images/appuyezbouton.jpg")
-        #pygame.mixer.init()
-        #son = pygame.mixer.Sound('/home/pi/Photomaton/son.wav')
-        #canal = son.play()
+    if (GPIO.input(25) == 0): #si le bouton est encore enfoncé (son etat sera 0)
+          print ("Ho ; bouton  appuyé !!! Je dois sortir ; c'est le chef qui l'a dit !") #Va afficher ça dans la console
+          break # alors on sort du while
+          
+    for event in pygame.event.get(): #pygame.event.get() va lire les evenements en attente dans la queue ainsi que les y retirer.
+        if event.type == pygame.KEYDOWN: #Si dans la queue il y a un appui sur la fleche du bas sur le clavier alors on attends 0.2s (fin de la fonction)
+            if event.key == pygame.K_ESCAPE: #Mais si il y a un appui sur la touche echap https://www.pygame.org/docs/ref/key.html#comment_pygame_key_name
+                print("Appui sur Echap, fin du programme")
+                pygame.quit() #Alors on quitte le programme
 
-
-        if (GPIO.input(25) == 0): #si le bouton est encore enfoncé (son etat sera 0)
-              print ("Ho ; bouton  appuyé !!! Je dois sortir ; c'est le chef qui l'a dit !") #Va afficher ça dans la console
-              break # alors on sort du while
-            
-        for event in pygame.event.get(): #pygame.event.get() va lire les evenements en attente dans la queue ainsi que les y retirer.
-            if event.type == pygame.KEYDOWN: #Si dans la queue il y a un appui sur la fleche du bas sur le clavier alors on attends 0.2s (fin de la fonction)
-                if event.key == pygame.K_ESCAPE: #Mais si il y a un appui sur la touche echap https://www.pygame.org/docs/ref/key.html#comment_pygame_key_name
-                    print("Appui sur Echap, fin du programme")
-                    pygame.quit() #Alors on quitte le programme
-
-  except KeyboardInterrupt:
-    print ('sortie du programme!')
-    raise
 
 GPIO.cleanup()           # reinitialisation GPIO lors d'une sortie normale
-
-

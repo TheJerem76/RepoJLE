@@ -5,7 +5,7 @@
 
 import RPi.GPIO as GPIO
 import time #Utile pour le sime.sleep pour mettre en pause le programme
-from datetime import datetime #Utile pour générer le nom de la photo selon la date du jour. Voir ligne 106
+from datetime import datetime #Utile pour générer le nom de la photo selon la date du jour. Voir ligne 106. Doc : https://docs.python.org/fr/3.6/library/datetime.html
 from PIL import Image #PIL sert à ouvrir, manipuler, sauveguarder des images
 import pygame
 from pygame.locals import *
@@ -104,7 +104,7 @@ while True : #boucle jusqu'a interruption
 
         #on génère le nom de la photo avec heure_min_sec
         date_today = datetime.now()
-        nom_image = date_today.strftime('%d-%m-%Y_%Hh-%Mm-%Ss')
+        nom_image = date_today.strftime('%d-%m-%Y_%Hh-%Mm-%Ss') #Voir strftime de la doc https://docs.python.org/fr/3.6/library/datetime.html#strftime-strptime-behavior
 
         
         #on déclenche la prise de photo
@@ -113,12 +113,12 @@ while True : #boucle jusqu'a interruption
         AfficherTexte("--> Merci ! <--")
 
 
-        #on affiche la photo
+        #On affiche la photo...
         time.sleep(1)
         AfficherPhoto(chemin_photo)
 
 
-        #on affiche un message
+        #...et par dessus on affiche un message
         AfficherTexteTransparent("OK ; voici ce qui est dans la boite ...")
         time.sleep(5) #Ajout d'un temps d'affichage afin de repartir sur l'accueil ensuite
 

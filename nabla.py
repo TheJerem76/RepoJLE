@@ -20,6 +20,7 @@ screen = pygame.display.set_mode((0,0),pygame.RESIZABLE)
 width, height = screen.get_size()
 rectScreen = screen.get_rect()
 pygame.mouse.set_visible (False)
+BUTTON_PIN = 25
 
 #Ppygame.mixer.init()
 #son = pygame.mixer.Sound('/home/pi/Photomaton/son.wav')

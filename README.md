@@ -3,6 +3,7 @@
 Le dossier Bases_de_travail contient toutes les bases d'appui du projet. Il s'agit de plusieurs codes dans lesquels piocher.
 
 > camera.py = Programme qui lance tout le photobooth avec imprimante
+
 > camera2.py = Programme qui lance tout le photobooth sans imprimante
 
 

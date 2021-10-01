@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*
 
+# Photobooth version 1
+
 # Pour info, la taille de l'écran 7 pouces est de 640x480.
 
 import RPi.GPIO as GPIO

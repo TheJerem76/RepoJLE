@@ -13,6 +13,17 @@ import pygame
 from pygame.locals import *
 import os
 
+#-- Import et création d'un fichier de log --#
+import logging
+logging.basicConfig(filename='FichierDeLogs.log', encoding='utf-8', level=logging.DEBUG)
+logging.info('This message should go the the file')
+
+
+#--------------------------------------------#
+
+import logging #Utile pour logguer tous les évènements
+
+
 GPIO.setmode(GPIO.BCM) #Attention au choix du port ; référez-vous au site https://fr.pinout.xyz/
 GPIO.setup(25, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
